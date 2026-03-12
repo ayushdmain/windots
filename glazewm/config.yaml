@@ -30,14 +30,14 @@ window_effects:
   focused_window:
     border:
       enabled: true
-      color: '#eebebe' # Flamingo
+      color: '#f9e2af' # Yellow
     corner_style:
       enabled: true
       style: 'square'
   other_windows:
     border:
       enabled: true
-      color: '#8ca0da' # Sapphire
+      color: '#89b4fa' # Blue
     corner_style:
       enabled: true
       style: 'square'
