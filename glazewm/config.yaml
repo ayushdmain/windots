@@ -34,13 +34,6 @@ window_effects:
     corner_style:
       enabled: true
       style: 'square'
-  other_windows:
-    border:
-      enabled: true
-      color: '#89b4fa' # Blue
-    corner_style:
-      enabled: true
-      style: 'square'
 # ----------------------------------------------------------------------
 # WINDOW BEHAVIOR
 # ----------------------------------------------------------------------
