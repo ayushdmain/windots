@@ -1,135 +1,192 @@
-watch_stylesheet: true
-watch_config: true
+## ============================================================================
+## GLOBAL SETTINGS
+## ============================================================================
+watch_stylesheet: true   # Auto-reload styles.css on change
+watch_config: true       # Auto-reload config.yaml on change
 debug: false
-komorebi:
-  start_command: "komorebic start --whkd"
-  stop_command: "komorebic stop --whkd"
-  reload_command: "komorebic stop --whkd && komorebic start --whkd"
+update_check: true
+
+## ============================================================================
+## BAR CONFIGURATION
+## ============================================================================
 bars:
   primary-bar:
     enabled: true
-    screens: ['*'] 
     class_name: "yasb-bar"
-    alignment:
+    alignment: 
       position: "top"
-      center: true
-    blur_effect:
-      enabled: true 
-      acrylic: true 
-      dark_mode: true
-      round_corners: false
-      border_color: None
-    window_flags:
-      always_on_top: false
-      windows_app_bar: true
+      center: false 
     dimensions:
       width: "100%"
-      height: 32
-    padding:
+      height: 32 
+    padding:  
       top: 0
       left: 0
       bottom: 0
-      right: 0
+      right: 0 
+    window_flags:  
+      always_on_top: false
+      windows_app_bar: true 
+    blur_effect:  
+      enabled: true
+      acrylic: false
+      dark_mode: false 
+    
+    # Widget Layout
     widgets:
-      left: [
-          "home", 
-          "glazewm_workspaces", 
-          # "active_window",
-      ]
-      center: [
-          "open_meteo",
-          "clock",
-        ]
-      right: [
-          "memory",
-          # "disk",
-          # "weather",
-          "wifi",
-          "volume",
-          # "battery",
-          "power_menu"
-      ]
+      left: 
+        # - "home"
+        - "glazewm_workspaces"
+        - "media"
+      center:
+        - "clock"
+        # - "weather"
+        - "open_meteo"
+      right:
+        - "systray"
+        - "grouped_metric_widgets"  # Traffic, CPU, Memory
+        - "grouped_system_widgets"  # Vol, Mic, Brightness, Wifi, BT, Notifs, Power
+
+## ============================================================================
+## WIDGET DEFINITIONS
+## ============================================================================
 widgets:
+
+  # --- GROUPERS ---
+  
+  # === Group: System Controls (Grouper) ===
+  grouped_system_widgets:
+    type: "yasb.grouper.GrouperWidget"
+    options:
+      class_name: "grouped-widgets controls-group"
+      container_padding: 
+        top: 0
+        left: 2
+        bottom: 0
+        right: 6 
+      widgets:
+        - "bluetooth"
+        - "microphone"
+        - "volume"
+        - "brightness"
+        - "wifi"
+        - "notifications"
+        - "power_menu"
+
+  # === Group: Metric Widgets (Grouper) ===
+  grouped_metric_widgets:
+    type: "yasb.grouper.GrouperWidget"
+    options:
+      class_name: "grouped-widgets"
+      container_padding: 
+        top: 0
+        left: 2
+        bottom: 0
+        right: 6
+      widgets:
+        - "traffic"
+        - "cpu"
+        - "memory"
+
+  # --- LEFT MODULES ---
+
   home:
     type: "yasb.home.HomeWidget"
     options:
-      label: "<span>\udb80\udf5c</span>"
-      menu_list:
-        - { title: "Home", path: "~" }
-        - { title: "Downloads", path: "~\\Downloads"}
-        - { title: "Documents", path: "~\\Documents"}
-        - { title: "Pictures", path: "~\\Pictures"}
-        - { title: "Videos", path: "~\\Videos"}
+      label: "\ue62a"
       system_menu: true
-      power_menu: false
+      power_menu: true
       blur: true
-      round_corners: true
-      round_corners_type: "small"
-      border_color: "#7aa2f7"
-      alignment: "left"
-      offset_left: 4
-      offset_top: 0
+      border_color: "None"
+      container_padding: 
+        top: 0
+        left: 6
+        bottom: 0
+        right: 4
+      menu_list:
+        - { title: "User Home", path: "~" }
+        - { title: "Download", path: "~\\Downloads" }
+        - { title: "Documents", path: "~\\Documents" }
+        - { title: "Pictures", path: "~\\Pictures" }
+
   glazewm_workspaces:
     type: "glazewm.workspaces.GlazewmWorkspacesWidget"
     options:
       offline_label: "GlazeWM Offline"
       hide_empty_workspaces: true
-      hide_if_offline: true
-  komorebi_workspaces:
-    type: "komorebi.workspaces.WorkspaceWidget"
+      animation: true
+
+  media:
+    type: "yasb.media.MediaWidget"
     options:
-      label_offline: "KomorebiWM Offline"
-      hide_empty_workspaces: true
-      hide_if_offline: true
-  memory:
-    type: "yasb.memory.MemoryWidget"
-    options:
-      label: "<span>\uf4bc</span> {virtual_mem_outof}"
-      label_alt: "<span>\uf4bc</span> {virtual_mem_outof}"
-      update_interval: 10000
-      callbacks:
-        on_right: "exec cmd /c Taskmgr"
-  disk:
-    type: "yasb.disk.DiskWidget"
-    options:
-        label: "<span>\uf473</span> disks"
-        label_alt: "<span>\uf473</span>"
-        group_label:
-          volume_labels: ["C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-          show_label_name: false 
-          blur: true
-          round_corners: true
-          round_corners_type: "small"
-          border_color: '#7aa2f7'
-          alignment: 'center'
-          offset_top: 0
-        callbacks:
-          on_left: "toggle_group"
-  active_window:
-    type: "yasb.active_window.ActiveWindowWidget"
-    options:
-      label: "{win[title]}"
-      label_alt: "[class_name='{win[class_name]}' exe='{win[process][name]}' hwnd={win[hwnd]}]"
-      label_no_window: ""
-      label_icon: true
-      label_icon_size: 14
-      max_length: 50
-      max_length_ellipsis: "..."
-      monitor_exclusive: true
+      label: "{title}"
+      label_alt: "{title} - {artist}"
+      hide_empty: true
+      show_thumbnail: true
+      controls_left: false
+      controls_hide: false
+      thumbnail_edge_fade: true
+      thumbnail_padding: 32
+      max_field_size:
+        label: 16
+        label_alt: 45
+      callbacks: 
+        on_left: "toggle_media_menu"
+        on_middle: "toggle_play_pause"
+        on_right: "toggle_label"
+      progress_bar:
+        enabled: true
+        alignment: "bottom"
+      scrolling_label:
+        enabled: true
+        update_interval_ms: 50
+        style: "left"
+        separator: " "
+        label_padding: 2
+        ease_slope: 20
+        ease_pos: 0.8
+        ease_min: 0.5
+      icons: 
+        prev_track: "\ue892"
+        next_track: "\ue893"
+        play: "\ue768"
+        pause: "\ue769"
+      media_menu: 
+        blur: true
+        border_color: "None"
+        alignment: "right"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+        thumbnail_corner_radius: 4
+        thumbnail_size: 80
+        max_title_size: 60
+        max_artist_size: 20
+        show_source: true
+      media_menu_icons:
+        play: "\ue768"
+        pause: "\ue769"
+        prev_track: "\ue892"
+        next_track: "\ue893"
+
+  # --- CENTER MODULES ---
+
   clock:
     type: "yasb.clock.ClockWidget"
     options:
-      label: "<span>\uf017</span>{%H:%M}"
-      label_alt: "<span>\uf017</span>{%A, %B %d. %Y %H:%M}"
+      label: "{%a %Y-%m-%d %H:%M:%S}"
+      label_alt: "{%a %Y-%m-%d %H:%M:%S}"
       locale: "en_US"
       timezones: []
-      calendar:
-        round_corners: true
-        round_corners_type: "small"
-        border_color: "#7aa2f7"
-        alignment: "center"
-        offset_top: 0
+      calendar: 
+        blur: true
         show_holidays: true
+        country_code: "IN"
+        holiday_color: "#e06c75" # One Dark Red
+        alignment: "center"
+        direction: "down"
+        show_week_numbers: true
+      label_shadow: { enabled: true, color: "black", radius: 3, offset: [1, 1] }
   open_meteo:
     type: "yasb.open_meteo.OpenMeteoWidget"
     options:
@@ -169,100 +226,223 @@ widgets:
         offset_top: 0
         icon_size: 48
 
-  weather:
-    type: "yasb.weather.WeatherWidget"
+  # --- RIGHT MODULES ---
+
+  systray:
+    type: "yasb.systray.SystrayWidget"
     options:
-      label: "<span>{icon}</span> {temp}"
-      label_alt: "{location}: {conditions}, Min {min_temp}, Max {max_temp}, Humidity {humidity}"
-      api_key: "3bf4cf9a7c3f40d6b31174128242807"
-      update_interval: 600
+      class_name: "systray"
+      icon_size: 16
+      label_collapsed: "\uf47d"
+      label_expanded: "\uf460"
+      label_position: "right"
+      show_unpinned_button: true
+      show_unpinned: false
+      pin_click_modifier: "alt"
+
+  traffic:
+    type: "yasb.traffic.TrafficWidget"
+    options:
+      label: "<span>\ueab4</span> {download_speed} <span>\ueab7</span> {upload_speed} | "
+      label_alt: "<span>\ueab4</span> {download_speed} <span>\ueab7</span> {upload_speed} | "
+      speed_unit: "bits"
       hide_decimal: true
-      location: "Hungary, Eger"
-      units: "metric"
       callbacks:
-        on_left: "toggle_card"
-      icons:
-        sunnyDay: "\udb81\udd99"
-        clearNight: "\ue3c2"
-        cloudyDay: "\ue21d"
-        cloudyNight: "\ue226"
-        rainyDay: "\ue371"
-        rainyNight: "\ue371"
-        # snowyIcyDay: "\udb81\udf17"
-        # snowyIcyNight: "\udb81\udf17"
-        blizzardDay: "\udb81\udd99"
-        default: "\udb81\udd99"
-      weather_card:
-        blur: true
-        round_corners: true
-        round_corners_type: "small"
-        border_color: "#7aa2f7"
-        alignment: "center"
-        direction: "down"
-        offset_top: 0
-        icon_size: 48
-  wifi:
-    type: "yasb.wifi.WifiWidget"
-    options:
-      label: "<span>{wifi_icon}</span> {wifi_strength}%"
-      label_alt: "<span>{wifi_icon}</span> {wifi_name} {wifi_strength}%"
-      ethernet_label: "<span>{wifi_icon}</span>"
-      ethernet_label_alt: "<span>{wifi_icon}</span> {wifi_name}"
-      ethernet_icon: "\uf108"
-      update_interval: 5000
-      callbacks:
-        on_left: "exec quick_settings"
-        on_middle: "do_nothing"
+        on_left: "toggle_menu"
         on_right: "toggle_label"
-      wifi_icons: [
-        "\udb82\udd2e",  # Icon for 0% strength
-        "\udb82\udd1f",  # Icon for 1-20% strength
-        "\udb82\udd22",  # Icon for 21-40% strength
-        "\udb82\udd25",  # Icon for 41-80% strength
-        "\udb82\udd28"   # Icon for 81-100% strength
-      ]
+      menu:
+        blur: true
+        alignment: "left"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+      label_shadow: { enabled: true, color: "black", radius: 3, offset: [1, 1] }
+
+  cpu:
+    type: "yasb.cpu.CpuWidget"
+    options:
+      label: "CPU"
+      label_alt: "CPU {info[percent][total]:.0f}%"
+      update_interval: 2000
+      callbacks: 
+        on_left: "exec taskmgr.exe"
+        on_right: "toggle_label"
+      progress_bar: 
+        enabled: true
+        position: "left"
+        size: 14
+        thickness: 2
+        color: "#56b6c2" # One Dark Cyan
+        background_color: "#282c34" # One Dark Background
+
+  memory:
+    type: "yasb.memory.MemoryWidget"
+    options:
+      label: "MEM"
+      label_alt: "VIRT: {virtual_mem_used}/{virtual_mem_total}"
+      update_interval: 5000
+      callbacks: 
+        on_left: "exec taskmgr.exe"
+        on_right: "toggle_label" 
+      progress_bar: 
+        enabled: true
+        size: 14
+        thickness: 2
+        color: "#56b6c2" # One Dark Cyan
+        background_color: "#282c34" # One Dark Background
+
+  bluetooth:
+    type: "yasb.bluetooth.BluetoothWidget"
+    options:
+      label: "<span>{icon}</span>"
+      label_alt: "{device_count}"
+      label_no_device: "No devices connected"
+      label_device_separator: ", "
+      max_length: 10
+      max_length_ellipsis: "..."
+      icons: 
+        bluetooth_on: "\udb80\udcaf"
+        bluetooth_off: "\udb80\udcb2"
+        bluetooth_connected: "\udb80\udcb1"
+      callbacks: 
+        on_right: "toggle_label"
+        on_middle: "exec cmd.exe /c start ms-settings:bluetooth"
+
+  microphone:
+    type: "yasb.microphone.MicrophoneWidget"
+    options:
+      label: "<span>{icon}</span>"
+      label_alt: "<span>{icon}</span> {level}"
+      icons: 
+        normal: "\uf130"
+        muted: "\uf131" 
+      callbacks: 
+        on_left: "toggle_mic_menu"
+        on_middle: "exec cmd.exe /c start ms-settings:sound"
+        on_right: "toggle_mute"
+      mic_menu:
+        blur: true
+        border_color: "None"
+        alignment: "right"
+        direction: "down"
+
   volume:
     type: "yasb.volume.VolumeWidget"
     options:
-      label: "<span>{icon}</span> {level}"
-      label_alt: "{volume}"
+      label: "<span>{icon}</span>"
+      label_alt: "{level}"
       volume_icons:
-        - "\ueee8"  # Icon for muted
-        - "\uf026"  # Icon for 0-10% volume
-        - "\uf027"  # Icon for 11-30% volume
-        - "\uf027"  # Icon for 31-60% volume
-        - "\uf028"  # Icon for 61-100% volume
+        - "\ueee8"
+        - "\uf026"
+        - "\uf027"
+        - "\uf027"
+        - "\uf028"
+      callbacks:
+        on_left: "toggle_volume_menu"
+        on_right: "toggle_mute"
+        on_middle: "exec control mmsys.cpl sounds"
       audio_menu:
         blur: true
-        round_corners: true
-        round_corners_type: "small"
-        border_color: "#7aa2f7"
+        border_color: "None"
         alignment: "center"
         direction: "down"
-        offset_top: 0
-      callbacks:
-        on_right: "toggle_mute"
-  battery:
-    type: "yasb.battery.BatteryWidget"
+        offset_top: 6
+        offset_left: 0
+        show_apps: true
+        show_app_labels: false
+        show_app_icons: true
+      container_padding:
+        top: 0
+        left: 2
+        bottom: 0
+        right: 2
+
+  brightness:
+    type: "yasb.brightness.BrightnessWidget"
     options:
-      label: "<span>{icon}</span>{percent}%"
-      label_alt: "<span>{icon}</span> {percent}% | time: {time_remaining}"
-      #hide_unsupported: true
-      charging_options:
-        icon_format: "{charging_icon}" 
+      label: "<span>{icon}</span>"
+      label_alt: "Brightness {percent}%"
+      hide_unsupported: true
+      brightness_toggle_level: [0, 50, 100]
+      brightness_icons: [
+        "\udb80\udcde",  # Icon for 0-25% brightness
+        "\udb80\udcdd",  # Icon for 26-50% brightness
+        "\udb80\udcdf",  # Icon for 51-75% brightness
+        "\udb80\udce0"   # Icon for 76-100% brightness
+      ]
+      callbacks: 
+        on_left: "toggle_brightness_menu"
+        on_right: "toggle_label" 
+      brightness_menu:
+        blur: true
+        border_color: "None"
+        alignment: "center"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+      container_padding: 
+        top: 0
+        left: 2
+        bottom: 0
+        right: 2
+
+  wifi:
+    type: "yasb.wifi.WifiWidget"
+    options:
+      label: "<span>{wifi_icon}</span>"
+      label_alt: "{wifi_name} {wifi_strength}%"
+      update_interval: 5000
+      ethernet_icon: "\ueba9"
+      wifi_icons: [
+        "\udb82\udd2e",  # Icon for 0% strength
+        "\udb82\udd1f",  # Icon for 1-24% strength
+        "\udb82\udd22",  # Icon for 25-49% strength
+        "\udb82\udd25",  # Icon for 50-74% strength
+        "\udb82\udd28"   # Icon for 75-100% strength
+      ]
+      callbacks:
+        on_left: "toggle_menu"
+        on_middle: "exec cmd.exe /c start ms-settings:network"
+        on_right: "toggle_label"
+      menu_config:
+        blur: true
+        alignment: "right"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+
+  notifications:
+    type: "yasb.notifications.NotificationsWidget"
+    options:
+      label: "<span>\uf476</span> {count}"
+      label_alt: "{count} notifications"
+      hide_empty: true
+      callbacks:
+        on_left: "toggle_notification"
+        on_right: "do_nothing"
+        on_middle: "toggle_label"
+      container_padding:
+        top: 0
+        left: 4
+        bottom: 0
+        right: 4
+
   power_menu:
     type: "yasb.power_menu.PowerMenuWidget"
     options:
       label: "\uf011"
-      uptime: True
-      blur: False
-      blur_background: True
-      animation_duration: 200
-      button_row: 5
+      uptime: true
+      blur_background: true
       buttons:
         shutdown: ["\uf011", "Shut Down"]
         restart: ["\uead2", "Restart"]
         signout: ["\udb80\udf43", "Sign out"]
-        hibernate: ["\uf28e", "Hibernate"]
+        hibernate: ["\uf28e", "Hibernate"] # Added hibernate option
         sleep: ["\u23fe", "Sleep"]
-        cancel: ["", "Cancel"]
+        cancel: ["\ueab8", "Close"]
+      container_padding: 
+        top: 0
+        left: 0
+        bottom: 0
+        right: 6  
+        
