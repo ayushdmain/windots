@@ -1,38 +1,56 @@
 ## ============================================================================
 ## GLOBAL SETTINGS
+## System-wide behavior for YASB.
 ## ============================================================================
-watch_stylesheet: true   # Auto-reload styles.css on change
-watch_config: true       # Auto-reload config.yaml on change
+# Automatically reload styles.css or config.yaml when changes are saved.
+watch_stylesheet: true   
+watch_config: true       
+# Enable debug mode for troubleshooting logs.
 debug: false
+# Check for YASB updates on startup.
 update_check: true
+
 
 ## ============================================================================
 ## BAR CONFIGURATION
+## Defines the physical bars, their placement, and which widgets they load.
 ## ============================================================================
 bars:
   primary-bar:
     enabled: true
+    # The CSS class applied to this specific bar
     class_name: "yasb-bar"
+    
+    # Positioning on the screen
     alignment: 
       position: "top"
       center: false 
+    
+    # Size constraints
     dimensions:
       width: "100%"
       height: 32 
+    
+    # Inner spacing for the entire bar
     padding:  
       top: 0
       left: 0
       bottom: 0
       right: 0 
+    
+    # OS-level window behaviors
     window_flags:  
       always_on_top: false
-      windows_app_bar: true 
+      windows_app_bar: true # Reserves screen space so windows don't overlap it
+    
+    # Background transparency and blur effects
     blur_effect:  
       enabled: true
       acrylic: false
       dark_mode: false 
     
-    # Widget Layout
+    # Defines the order and placement of widgets across the bar
+    # Uncomment widgets (remove '#') to make them visible
     widgets:
       left: 
         # - "home"
@@ -44,17 +62,22 @@ bars:
         - "open_meteo"
       right:
         - "systray"
-        - "grouped_metric_widgets"  # Traffic, CPU, Memory
-        - "grouped_system_widgets"  # Vol, Mic, Brightness, Wifi, BT, Notifs, Power
+        - "grouped_metric_widgets"  # Includes Traffic, CPU, Memory
+        - "grouped_system_widgets"  # Includes BT, Mic, Vol, Brightness, WiFi, Notifs, Power
+
 
 ## ============================================================================
 ## WIDGET DEFINITIONS
+## Configuration for individual widgets and groupers.
 ## ============================================================================
 widgets:
 
-  # --- GROUPERS ---
+  # ---------------------------------------------------------------------------
+  # GROUPERS
+  # Logical containers to group multiple widgets together for unified styling
+  # ---------------------------------------------------------------------------
   
-  # === Group: System Controls (Grouper) ===
+  # === Group: System Controls ===
   grouped_system_widgets:
     type: "yasb.grouper.GrouperWidget"
     options:
@@ -73,7 +96,7 @@ widgets:
         - "notifications"
         - "power_menu"
 
-  # === Group: Metric Widgets (Grouper) ===
+  # === Group: Metric Widgets ===
   grouped_metric_widgets:
     type: "yasb.grouper.GrouperWidget"
     options:
@@ -88,7 +111,9 @@ widgets:
         - "cpu"
         - "memory"
 
-  # --- LEFT MODULES ---
+  # ---------------------------------------------------------------------------
+  # LEFT MODULES
+  # ---------------------------------------------------------------------------
 
   home:
     type: "yasb.home.HomeWidget"
@@ -103,6 +128,7 @@ widgets:
         left: 6
         bottom: 0
         right: 4
+      # Dropdown menu items for quick folder access
       menu_list:
         - { title: "User Home", path: "~" }
         - { title: "Download", path: "~\\Downloads" }
@@ -130,6 +156,7 @@ widgets:
       max_field_size:
         label: 16
         label_alt: 45
+      # Mouse click actions
       callbacks: 
         on_left: "toggle_media_menu"
         on_middle: "toggle_play_pause"
@@ -169,12 +196,15 @@ widgets:
         prev_track: "\ue892"
         next_track: "\ue893"
 
-  # --- CENTER MODULES ---
+  # ---------------------------------------------------------------------------
+  # CENTER MODULES
+  # ---------------------------------------------------------------------------
 
   clock:
     type: "yasb.clock.ClockWidget"
     options:
-      label: "{%a %Y-%m-%d %H:%M:%S}"
+      # Formatting strings: %a (Day), %H (Hour), %M (Minute), %S (Second)
+      label: "{%a %H:%M}"
       label_alt: "{%a %Y-%m-%d %H:%M:%S}"
       locale: "en_US"
       timezones: []
@@ -182,18 +212,19 @@ widgets:
         blur: true
         show_holidays: true
         country_code: "IN"
-        holiday_color: "#e06c75" # One Dark Red
+        holiday_color: "#f38ba8" # Mocha Red
         alignment: "center"
         direction: "down"
         show_week_numbers: true
       label_shadow: { enabled: true, color: "black", radius: 3, offset: [1, 1] }
+
   open_meteo:
     type: "yasb.open_meteo.OpenMeteoWidget"
     options:
       label: "<span>{icon}</span> {temp}"
       label_alt: "{location}: Min {min_temp}, Max {max_temp}, Humidity {humidity}"
       tooltip: true
-      update_interval: 600
+      update_interval: 600 # Update every 10 minutes
       hide_decimal: true
       units: "metric"
       callbacks:
@@ -220,13 +251,15 @@ widgets:
         blur: true
         round_corners: true
         round_corners_type: "small"
-        border_color: "#7aa2f7"
+        border_color: "#89b4fa" # Mocha Blue
         alignment: "center"
         direction: "down"
         offset_top: 0
         icon_size: 48
 
-  # --- RIGHT MODULES ---
+  # ---------------------------------------------------------------------------
+  # RIGHT MODULES
+  # ---------------------------------------------------------------------------
 
   systray:
     type: "yasb.systray.SystrayWidget"
@@ -272,8 +305,8 @@ widgets:
         position: "left"
         size: 14
         thickness: 2
-        color: "#56b6c2" # One Dark Cyan
-        background_color: "#282c34" # One Dark Background
+        color: "#fab387" # Mocha Peach
+        background_color: "#313244" # Mocha Surface0
 
   memory:
     type: "yasb.memory.MemoryWidget"
@@ -288,8 +321,8 @@ widgets:
         enabled: true
         size: 14
         thickness: 2
-        color: "#56b6c2" # One Dark Cyan
-        background_color: "#282c34" # One Dark Background
+        color: "#89dceb" # Mocha Sky
+        background_color: "#313244" # Mocha Surface0
 
   bluetooth:
     type: "yasb.bluetooth.BluetoothWidget"
@@ -365,10 +398,10 @@ widgets:
       hide_unsupported: true
       brightness_toggle_level: [0, 50, 100]
       brightness_icons: [
-        "\udb80\udcde",  # Icon for 0-25% brightness
-        "\udb80\udcdd",  # Icon for 26-50% brightness
-        "\udb80\udcdf",  # Icon for 51-75% brightness
-        "\udb80\udce0"   # Icon for 76-100% brightness
+        "\udb80\udcde",  # 0-25%
+        "\udb80\udcdd",  # 26-50%
+        "\udb80\udcdf",  # 51-75%
+        "\udb80\udce0"   # 76-100%
       ]
       callbacks: 
         on_left: "toggle_brightness_menu"
@@ -394,11 +427,11 @@ widgets:
       update_interval: 5000
       ethernet_icon: "\ueba9"
       wifi_icons: [
-        "\udb82\udd2e",  # Icon for 0% strength
-        "\udb82\udd1f",  # Icon for 1-24% strength
-        "\udb82\udd22",  # Icon for 25-49% strength
-        "\udb82\udd25",  # Icon for 50-74% strength
-        "\udb82\udd28"   # Icon for 75-100% strength
+        "\udb82\udd2e",  # 0%
+        "\udb82\udd1f",  # 1-24%
+        "\udb82\udd22",  # 25-49%
+        "\udb82\udd25",  # 50-74%
+        "\udb82\udd28"   # 75-100%
       ]
       callbacks:
         on_left: "toggle_menu"
@@ -437,12 +470,11 @@ widgets:
         shutdown: ["\uf011", "Shut Down"]
         restart: ["\uead2", "Restart"]
         signout: ["\udb80\udf43", "Sign out"]
-        hibernate: ["\uf28e", "Hibernate"] # Added hibernate option
+        hibernate: ["\uf28e", "Hibernate"]
         sleep: ["\u23fe", "Sleep"]
         cancel: ["\ueab8", "Close"]
       container_padding: 
         top: 0
         left: 0
         bottom: 0
-        right: 6  
-        
+        right: 6

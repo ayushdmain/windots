@@ -2,7 +2,9 @@
    GLOBAL THEME & VARIABLES (Catppuccin Mocha)
    ============================================================================ */
 :root {
-    /* Catppuccin Mocha — global palette */
+    /* * Catppuccin Mocha Global Palette 
+     * Changing these hex codes will globally update the theme across all widgets.
+     */
     --rosewater: #f5e0dc;
     --flamingo: #f2cdcd;
     --pink: #f5c2e7;
@@ -23,12 +25,12 @@
     --subtext1: #bac2de;
     --subtext0: #a6adc8;
 
-    /* Overlays */
+    /* Overlays (used for borders, shadows, disabled text) */
     --overlay2: #9399b2;
     --overlay1: #7f849c;
     --overlay0: #6c7086;
 
-    /* Surfaces */
+    /* Surfaces (used for widget backgrounds, hover states, menus) */
     --surface2: #585b70;
     --surface1: #45475a;
     --surface0: #313244;
@@ -39,12 +41,14 @@
     /* Aliases for specific widgets */
     --orange: var(--peach); 
     
-    /* Bar opacity: tweak this to 1 or 0.5 for quick switching */
+    /* * MAIN BAR OPACITY & BACKGROUND
+     * Tweak '--bar-alpha' to 1 (solid) or 0.5 (transparent) for quick switching.
+     */
     --bar-alpha: 0.5;
-    /* Mocha Crust RGB: 17, 17, 27 */
+    /* Mocha Crust RGB: 17, 17, 27 applied with the alpha value */
     --crust: rgba(17, 17, 27, var(--bar-alpha)); 
 
-    /* Aliases used in some widgets */
+    /* Legacy aliases used in older YASB widget structures */
     --text1: var(--text);
     --text2: var(--subtext0);
     --text3: var(--overlay1);
@@ -53,6 +57,10 @@
     --bg-color2: var(--surface1);
 }
 
+/* ============================================================================
+   BASE TYPOGRAPHY & BAR STYLING
+   ============================================================================ */
+/* Applies to everything unless overridden */
 * {
     font-size: 13px;
     color: var(--text);
@@ -62,6 +70,7 @@
     padding: 0;
 }
 
+/* The main outer wrapper for the entire top/bottom bar */
 .yasb-bar {
     background-color: var(--crust) !important;
     backdrop-filter: blur(16px) saturate(120%);
@@ -71,7 +80,8 @@
 /* ============================================================================
    GLOBAL UI ELEMENTS (Tooltips, Menus, Groupers)
    ============================================================================ */
-/* Global styles for ToolTip */
+
+/* ToolTip Popups (Hover over widgets) */
 .tooltip {
     background-color: var(--base);
     border: 1px solid var(--surface0);
@@ -84,12 +94,12 @@
     margin-top: 4px;
 }
 
-/* Global styles for Progress Circle */
+/* Circular progress rings (e.g., CPU, Memory) */
 .progress-circle {
     padding-right: 4px;
 }
 
-/* Global context menu style */
+/* Global Right-Click / Context Menu style */
 .context-menu,
 .context-menu .menu-checkbox {
     background-color: var(--base);
@@ -138,6 +148,8 @@
     margin: 0;
     padding-left: 16px;
 }
+
+/* Checkbox specific context menu items */
 .context-menu .menu-checkbox .checkbox:unchecked {
     color: var(--overlay0);
 }
@@ -159,6 +171,7 @@
     outline: none;
 }
 
+/* Base Widget Container */
 .widget {
     padding: 0 3px;
     margin: 0;
@@ -170,6 +183,8 @@
 .widget .label {
     padding: 0px 2px;
 }
+
+/* Grouped Widget Container (Used for metrics & system controls) */
 .grouped-widgets .container {
     background-color: transparent;
     margin: 4px 0 4px 0;
@@ -193,7 +208,7 @@
     color: var(--text);
 }
 
-/* === Home Menu === */
+/* Dropdown menu triggered by Home Widget */
 .home-menu {
     background-color: var(--crust);
     border-radius: 8px;
@@ -206,8 +221,7 @@
     font-weight: 600;
 }
 .home-menu .menu-item:hover {
-    /* Mocha Overlay2 RGB */
-    background-color: rgba(147, 153, 178, 0.15); 
+    background-color: rgba(147, 153, 178, 0.15); /* Mocha Overlay2 RGB */
     color: var(--text);
 }
 .home-menu .separator {
@@ -225,6 +239,7 @@
     border: 1px solid var(--surface1);
     padding: 2px 4px;
 }
+/* Individual Workspace Buttons */
 .glazewm-workspaces .ws-btn {
     font-size: 14px;
     border: none;
@@ -236,12 +251,11 @@
     transition: background-color 120ms ease, color 120ms ease;
 }
 .glazewm-workspaces .ws-btn:hover {
-    /* Mocha Text RGB */
-    background-color: rgba(205, 214, 244, 0.06); 
+    background-color: rgba(205, 214, 244, 0.06); /* Mocha Text RGB */
     color: var(--text);
 }
 
-/* Active (populated or not) */
+/* Active Workspace (Currently focused) */
 .glazewm-workspaces .ws-btn.active_populated,
 .glazewm-workspaces .ws-btn[aria-current="true"] {
     color: var(--text);
@@ -250,6 +264,7 @@
     font-weight: 700;
 }
 
+/* Fallback for Windows Desktops/Active state rules */
 .windows-desktops .ws-btn.active_empty,
 .windows-desktops .ws-btn.active.empty,
 .windows-desktops .ws-btn.active_populated,
@@ -260,13 +275,14 @@
     font-weight: 700;
 }
 
-/* === Media Menu === */
+/* === Media Widget === */
 .media-widget .label {
     color: var(--subtext1);
     padding: 0px;
     padding-right: 4px;
     font-size: 12px;
 }
+/* Media Control Buttons (Play, Pause, Skip) */
 .media-widget .btn {
     background: transparent;
     color: var(--overlay1);
@@ -289,6 +305,7 @@
     font-size: 12px;
     background-color: rgba(0, 0, 0, 0);
 }
+/* Media Progress Bar (In the main bar) */
 .media-widget .progress-bar {
     max-height: 2px;
     background-color: transparent;
@@ -299,6 +316,8 @@
     background-color: var(--blue);
     border-radius: 2px;
 }
+
+/* === Media Flyout Menu === */
 .media-menu {
     min-width: 360px;
     max-width: 360px;
@@ -318,6 +337,7 @@
     margin-top: 0px;
     margin-bottom: 8px;
 }
+/* App Source Badges (Spotify, Browsers, etc.) */
 .media-menu .source {
     font-size: 11px;
     color: var(--crust-color);
@@ -342,6 +362,7 @@
     background-color: var(--blue);
     color: var(--base);
 }
+/* Media Menu Controls */
 .media-menu .btn {
     font-family: "Segoe Fluent Icons";
     font-size: 14px;
@@ -369,6 +390,7 @@
     color: var(--surface2);
     background-color: rgba(0, 0, 0, 0);
 }
+/* Media Menu Timeline */
 .media-menu .playback-time {
     font-size: 13px;
     font-family: 'Segoe UI';
@@ -386,7 +408,6 @@
     height: 2px;
     border-radius: 3px;
     background: rgba(205, 214, 244, 0.1);
-
 }
 .media-menu .progress-slider::groove:hover {
     background: transparent;
@@ -404,10 +425,9 @@
    CENTER WIDGETS (Clock, Weather)
    ============================================================================ */
 
-/* === Calendar Widget === */
+/* === Calendar Widget (Clock Flyout) === */
 .calendar {
-    /* Mocha Base RGB */
-    background-color: rgba(30, 30, 46, 0.4);
+    background-color: rgba(30, 30, 46, 0.4); /* Mocha Base RGB */
 }
 .calendar .calendar-table,
 .calendar .calendar-table::item {
@@ -459,68 +479,57 @@
     margin-top: -20px;
 }
 
-/* === Weather Widget === */
-.weather-widget .icon {
+/* === Open Meteo Widget (Weather Flyout) === */
+.open-meteo-widget .icon {
     font-size: 20px;
+    margin: 0 2px 1px 0;
+    color: var(--maroon);
+}
+.open-meteo-card {
+    background-color: var(--mantle);
 }
 
-.weather-card {
-    background-color: rgba(30, 30, 46, 0.5);
-}
-
+/* Legacy Weather Styles (If you switch back to standard weather) */
+.weather-widget .icon { font-size: 20px; }
+.weather-card { background-color: rgba(30, 30, 46, 0.5); }
 .weather-card-today {
     border: 1px solid var(--surface0);
     border-radius: 8px;
     background-color: rgba(30, 30, 46, 0.2);
 }
-
-.weather-card-today .label {
-    font-size: 12px;
-}
-
+.weather-card-today .label { font-size: 12px; }
 .weather-card-today .label.location {
     font-size: 24px;
     font-weight: 700;
 }
-
 .weather-card-today .label.alert {
     font-size: 12px;
     font-weight: 700;
-    /* Mocha Yellow RGB */
-    background-color: rgba(249, 226, 175, 0.05);
+    background-color: rgba(249, 226, 175, 0.05); /* Mocha Yellow RGB */
     border: 1px solid rgba(249, 226, 175, 0.1);
     color: var(--yellow);
     border-radius: 6px;
     padding: 5px 0;
 }
-
 .weather-card-day {
     border: 1px solid var(--surface1);
     border-radius: 8px;
     background-color: rgba(30, 30, 46, 0.2);
 }
-
 .weather-card-day.active {
     background-color: rgba(30, 30, 46, 0.6);
     border: 1px solid var(--surface1);
 }
-
 .weather-card-day:hover {
-    /* Mocha Surface0 RGB */
-    background-color: rgba(49, 50, 68, 0.6);
+    background-color: rgba(49, 50, 68, 0.6); /* Mocha Surface0 RGB */
 }
-
-.weather-card-day .label {
-    font-size: 12px;
-}
-
+.weather-card-day .label { font-size: 12px; }
 .weather-card .hourly-container {
     border: 1px solid var(--surface0);
     background-color: var(--surface2);
     border-radius: 8px;
     min-height: 150px;
 }
-
 .weather-card .hourly-data {
     background-color: var(--yellow);
     font-size: 12px;
@@ -528,8 +537,8 @@
 }
 
 /* ============================================================================
-RIGHT WIDGETS (Systray, Metrics, System Controls)
-============================================================================ */
+   RIGHT WIDGETS (Systray, Metrics, System Controls)
+   ============================================================================ */
 
 /* === System Tray (Systray) === */
 .systray {
@@ -558,10 +567,11 @@ RIGHT WIDGETS (Systray, Metrics, System Controls)
     border-radius: 4px;
 }
 
-/* === Traffic Widget === */
+/* === Traffic Widget (Network Speeds) === */
 .traffic-widget .label {
     padding-right: 8px;
 }
+/* Traffic Dropdown Menu */
 .traffic-menu {
     background-color: rgba(30, 30, 46, 0.45);
     border-radius: 8px;
@@ -579,7 +589,7 @@ RIGHT WIDGETS (Systray, Metrics, System Controls)
     padding: 12px;
 }
 .traffic-menu .header .title {
-    padding: 8;
+    padding: 8px;
     font-size: 14px;
     font-weight: 600;
     font-family: 'Segoe UI';
@@ -599,8 +609,7 @@ RIGHT WIDGETS (Systray, Metrics, System Controls)
 }
 .traffic-menu .reset-button:hover {
     color: var(--text);
-    /* Mocha Blue RGB */
-    background-color: rgba(137, 180, 250, 0.15);
+    background-color: rgba(137, 180, 250, 0.15); /* Mocha Blue RGB */
     border-color: rgba(137, 180, 250, 0.35);
 }
 .traffic-menu .reset-button:pressed {
@@ -609,7 +618,7 @@ RIGHT WIDGETS (Systray, Metrics, System Controls)
     border-color: rgba(137, 180, 250, 0.45);
 }
 
-/* Speed column styles */
+/* Network Speed Display Blocks */
 .traffic-menu .download-speed,
 .traffic-menu .upload-speed {
     background-color: transparent;
@@ -652,7 +661,7 @@ RIGHT WIDGETS (Systray, Metrics, System Controls)
     padding: 0 0 4px 0;
 }
 
-/* Section and data styles */
+/* Network Usage Sections (Session, Today, All Time) */
 .traffic-menu .section-title {
     font-size: 12px;
     font-weight: 600;
@@ -682,7 +691,7 @@ RIGHT WIDGETS (Systray, Metrics, System Controls)
     color: var(--text);
 }
 
-/* Interface and Internet info styles */
+/* Network Interface and Internet connection status */
 .traffic-menu .interface-info,
 .traffic-menu .internet-info {
     font-size: 12px;
@@ -694,13 +703,11 @@ RIGHT WIDGETS (Systray, Metrics, System Controls)
     background-color: rgba(30, 30, 46, 0.15);
 }
 .traffic-menu .internet-info.connected {
-    /* Mocha Green RGB */
-    background-color: rgba(166, 227, 161, 0.12);
+    background-color: rgba(166, 227, 161, 0.12); /* Mocha Green RGB */
     color: var(--green);
 }
 .traffic-menu .internet-info.disconnected {
-    /* Mocha Red RGB */
-    background-color: rgba(243, 139, 168, 0.12);
+    background-color: rgba(243, 139, 168, 0.12); /* Mocha Red RGB */
     color: var(--red);
 }
 
@@ -713,7 +720,7 @@ RIGHT WIDGETS (Systray, Metrics, System Controls)
     padding-right: 8px;
 }
 
-/* === Controls Group (Quick Toggles) === */
+/* === System Controls Group (Quick Toggles Grouper) === */
 .controls-group .widget {
     padding: 0 6px;
     border-radius: 8px;
@@ -723,21 +730,25 @@ RIGHT WIDGETS (Systray, Metrics, System Controls)
 .controls-group .label {
     font-size: 14px;
 }
+/* Default Icon Colors */
 .controls-group .bluetooth-widget .icon,
 .controls-group .microphone-widget .icon,
 .controls-group .volume-widget .icon,
 .controls-group .wifi-widget .icon {
     color: var(--text);
 }
+/* Power Button Color */
 .controls-group .power-menu-widget .label,
 .controls-group .power-menu-widget:hover .label {
     color: var(--red);
 }
+/* Notifications Icon Color */
 .controls-group .notifications-widget .icon,
 .controls-group .notification-widget .icon,
 .notification-widget .icon {
     color: var(--blue);
 }
+/* Hover States for Controls */
 .controls-group .widget:hover .icon,
 .controls-group .widget:hover .label {
     color: var(--text);
@@ -750,40 +761,35 @@ RIGHT WIDGETS (Systray, Metrics, System Controls)
     color: var(--blue);
 }
 
-/* === Microphone Widget + Menu === */
-.microphone-menu {
-    background-color: var(--crust)
-}
+/* === Individual System Control Menus === */
+
+/* Microphone */
+.microphone-menu { background-color: var(--crust) }
 .microphone-widget .icon {
     font-size: 14px;
     color: var(--green);
 }
 
-/* === Audio Menu & Volume Widget === */
-.audio-menu {
-    background-color: var(--crust)
-}
+/* Audio / Volume */
+.audio-menu { background-color: var(--crust) }
 .volume-widget .icon {
     font-size: 12px;
     color: var(--green);
 }
 
-/* === Brightness Widget + Menu ===    */
-.brightness-menu {
-    background-color: var(--crust)
-}
+/* Brightness */
+.brightness-menu { background-color: var(--crust) }
 .brightness-widget .widget-container .icon {
     font-size: 14px;
     color: var(--green);
 }
 
-/* === Wi‑Fi Widget (Controls Group) === */
+/* === Wi‑Fi Widget === */
 .wifi-widget,
 .wifi-widget .icon,
 .wifi-widget .label {
     cursor: pointer !important;
 }
-
 .controls-group .wifi-widget,
 .controls-group .wifi-widget .widget-container {
     border-radius: 8px;
@@ -795,7 +801,7 @@ RIGHT WIDGETS (Systray, Metrics, System Controls)
     background-color: transparent !important;
 }
 
-/* === Wi‑Fi Menu === */
+/* === Wi‑Fi Dropdown Menu === */
 .wifi-menu {
     font-family: 'Segoe UI';
     background-color: var(--crust);
@@ -896,6 +902,7 @@ RIGHT WIDGETS (Systray, Metrics, System Controls)
 .wifi-menu .wifi-item .connect:pressed {
     background-color: rgba(205, 214, 244, 0.3);
 }
+/* Wifi Menu Footer (Refresh/Settings) */
 .wifi-menu .footer {
     font-size: 12px;
     font-weight: 600;
@@ -937,9 +944,11 @@ RIGHT WIDGETS (Systray, Metrics, System Controls)
     color: var(--red);
     font-size: 13px;
 }
+/* Fullscreen Power Menu Overlay */
 .power-menu-popup {
-    background-color: transparent
+    background-color: transparent;
 }
+/* Big power option buttons (Shutdown, Restart, etc.) */
 .power-menu-popup .button {
     padding: 0;
     width: 180px;
@@ -958,48 +967,38 @@ RIGHT WIDGETS (Systray, Metrics, System Controls)
     margin-bottom: 8px;
     font-size: 16px;
     font-weight: 500;
-    color: var(--text3)
+    color: var(--text3);
 }
 .power-menu-popup .button .icon {
     font-size: 64px;
     padding-top: 32px;
-    color: var(--text4)
+    color: var(--text4);
 }
 .power-menu-popup .button.hover .label,
 .power-menu-popup .button.hover .icon {
-    color: rgba(205, 214, 244, 0.8)
+    color: rgba(205, 214, 244, 0.8);
 }
 
+/* Power Option Accent Colors */
 .power-menu-popup .button.shutdown .icon,
-.power-menu-popup .button.shutdown .label {
-    color: var(--red);
-}
+.power-menu-popup .button.shutdown .label { color: var(--red); }
 
 .power-menu-popup .button.restart .icon,
-.power-menu-popup .button.restart .label {
-    color: var(--peach);
-}
+.power-menu-popup .button.restart .label { color: var(--peach); }
 
 .power-menu-popup .button.sleep .icon,
-.power-menu-popup .button.sleep .label {
-    color: var(--blue);
-}
+.power-menu-popup .button.sleep .label { color: var(--blue); }
 
 .power-menu-popup .button.hibernate .icon,
-.power-menu-popup .button.hibernate .label {
-    color: var(--yellow);
-}
+.power-menu-popup .button.hibernate .label { color: var(--yellow); }
 
 .power-menu-popup .button.signout .icon,
-.power-menu-popup .button.signout .label {
-    color: var(--lavender);
-}
+.power-menu-popup .button.signout .label { color: var(--lavender); }
 
 .power-menu-popup .button.cancel .icon,
-.power-menu-popup .button.cancel .label {
-    color: var(--overlay0);
-}
+.power-menu-popup .button.cancel .label { color: var(--overlay0); }
 
+/* Force pointers on power menu interaction */
 .power-menu-popup,
 .power-menu-popup .button,
 .power-menu-popup .button.hover,
@@ -1007,14 +1006,12 @@ RIGHT WIDGETS (Systray, Metrics, System Controls)
 .power-menu-popup .button .icon {
     cursor: pointer !important;
 }
-
 .power-menu-popup .button:hover,
 .power-menu-popup .button:hover .label,
 .power-menu-popup .button:hover .icon {
     cursor: pointer !important;
     cursor: hand !important;
 }
-
 .power-menu-popup *,
 .power-menu-popup .button *,
 .power-menu-popup .button.hover * {
@@ -1022,21 +1019,10 @@ RIGHT WIDGETS (Systray, Metrics, System Controls)
     cursor: hand !important;
 }
 
+/* System Uptime text inside the power menu */
 .uptime {
     font-size: 14px;
     margin-bottom: 10px;
     color: var(--text4);
     font-weight: 600;
-}
-/* ==================== */
-/* === OPEN METEO WIDGET === */
-/* ==================== */
-.open-meteo-widget .icon {
-    font-size: 20px;
-    margin: 0 2px 1px 0;
-    color: var(--maroon);
-}
-
-.open-meteo-card {
-    background-color: var(--mantle);
 }
