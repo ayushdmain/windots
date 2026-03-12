@@ -30,12 +30,17 @@ window_effects:
   focused_window:
     border:
       enabled: true
-      color: '#61AFEF' # Blue border
-      width: 2px
+      color: '#eebebe' # Flamingo
     corner_style:
       enabled: true
       style: 'square'
-
+  other_windows:
+    border:
+      enabled: true
+      color: '#8ca0da' # Sapphire
+    corner_style:
+      enabled: true
+      style: 'square'
 # ----------------------------------------------------------------------
 # WINDOW BEHAVIOR
 # ----------------------------------------------------------------------
