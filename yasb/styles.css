@@ -34,7 +34,7 @@
     --surface0: #282936;
 
 /* Base colors */
-    --base: #1e1e2e;
+    --base: #1E1E2E;
     --mantle: rgba(24, 24, 37, 0.5);
     --crust: rgba(17, 17, 27, 0.75);
 }
@@ -294,6 +294,18 @@
     background-color: var(--mantle);
 }
 
+/* ==================== */
+/* === OPEN METEO WIDGET === */
+/* ==================== */
+.open-meteo-widget .icon {
+    font-size: 20px;
+    margin: 0 2px 1px 0;
+    color: var(--maroon);
+}
+
+.open-meteo-card {
+    background-color: var(--mantle);
+}
 /* ====================== */
 /* === WORKSPACE WIDGET === */
 /* ====================== */
