@@ -1,0 +1,26 @@
+# --- Folders to Ignore ---
+# Ignore any logs folders created by the apps
+**/logs/
+**/log/
+**/debug/
+
+# --- File Extensions to Ignore ---
+*.log
+*.tmp
+*.bak
+*.swp
+*.old
+
+# --- App Specific Ignored Files ---
+# GlazeWM specific state/log files (if they appear in your config dir)
+glazewm/glazewm.log
+glazewm/.glzr.state
+
+# YASB specific (if it creates local cache)
+.config/yasb/cache/
+.config/yasb/*.log
+
+# --- Windows System Files ---
+Thumbs.db
+Desktop.ini
+.DS_Store
