@@ -204,7 +204,7 @@ widgets:
     type: "yasb.clock.ClockWidget"
     options:
       # Formatting strings: %a (Day), %H (Hour), %M (Minute), %S (Second)
-      label: "{%a %H:%M}"
+      label: "{%a %Y-%m-%d %H:%M:%S}"
       label_alt: "{%a %Y-%m-%d %H:%M:%S}"
       locale: "en_US"
       timezones: []
