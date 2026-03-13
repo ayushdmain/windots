@@ -37,7 +37,7 @@
     border: none;
     border-radius: 0;
     min-height: 0;
-    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-family: "JetBrainsMono NFP", monospace;
     font-size: 13px;
     margin: 0;
     padding: 0;
@@ -59,7 +59,7 @@
     padding: 10px;
     background-color: #1e1e2e;
     color: #cdd6f4;
-    font-family: "JetBrainsMono Nerd Font", monospace;
+    /* font-family: "JetBrainsMono Nerd Font", monospace; */
     border: none;
 }
 .tooltip .label {
@@ -73,11 +73,15 @@
    ============================================================================ */
 
 /* Grouping the main modules to share the pill background */
+/* Add to the main pill grouping */
+.media-widget,
+.microphone-widget,
 .bluetooth-widget,
 .memory-widget,
 .power-menu-widget,
 .battery-widget,
 .volume-widget,
+.brightness-widget,  /* Added here */
 .wifi-widget,
 .clock-widget,
 .systray {
@@ -90,12 +94,15 @@
     align-items: center;
 }
 
-/* Hover state for all pills */
+/* Add to the hover state grouping */
+.media-widget:hover,
+.microphone-widget:hover,
 .bluetooth-widget:hover,
 .memory-widget:hover,
 .power-menu-widget:hover,
 .battery-widget:hover,
 .volume-widget:hover,
+.brightness-widget:hover, /* Added here */
 .wifi-widget:hover,
 .clock-widget:hover,
 .systray:hover {
@@ -115,7 +122,7 @@
 /* Custom Logo (Arch) */
 .home-widget {
     padding: 0 6px;
-    margin: 4px 6px 4px 0px;
+    margin: 4px 2px 4px 0px;
     border-radius: 0;
     background: transparent !important;
 }
@@ -145,7 +152,7 @@
     border-radius: 3px;
     background-color: #313244;
     color: #b4befe;
-    font-family: "JetBrainsMono Nerd Font", monospace;
+    /* font-family: "JetBrainsMono Nerd Font", monospace; */
     font-size: 13px;
     cursor: pointer;
     text-align: center;
@@ -160,6 +167,196 @@
     background-color: #cba6f7;
     color: #1e1e2e;
     font-weight: 600;
+}
+
+
+/* === Main Bar Media Controls === */
+.media-widget .btn {
+    background-color: transparent;
+    color: var(--text);
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 14px;
+    padding: 0 4px;
+    margin: 0 2px;
+    border-radius: 4px;
+}
+
+.media-widget .btn:hover {
+    background-color: var(--surface1); /* Highlights the button on hover */
+    color: var(--pink); /* Catppuccin Pink highlight */
+}
+
+/* Make the play/pause button slightly larger to stand out */
+.media-widget .btn.play,
+.media-widget .btn.pause {
+    font-size: 16px;
+    color: var(--pink); 
+}
+
+/* Dim the buttons if there is no media available to skip */
+.media-widget .btn.disabled {
+    color: var(--surface2);
+}
+.media-widget .btn.disabled:hover {
+    background-color: transparent;
+}
+
+/* Media Widget Main Bar Styling */
+.media-widget .label, .media-widget .icon { 
+    color: #f5c2e7; /* Catppuccin Pink */
+    padding-right: 4px; 
+}
+
+/* === Media Flyout Menu === */
+.media-menu {
+    min-width: 360px;
+    max-width: 360px;
+    background-color: var(--base);
+    border: 1px solid var(--surface1);
+    border-radius: 8px;
+}
+.media-menu .title,
+.media-menu .artist,
+.media-menu .source {
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 10px;
+    font-family: 'Segoe UI';
+    color: var(--text);
+}
+.media-menu .artist {
+    font-size: 13px;
+    color: var(--overlay0);
+    margin-top: 0px;
+    margin-bottom: 8px;
+}
+.media-menu .source {
+    font-size: 11px;
+    color: var(--crust-color);
+    font-weight: normal;
+    border-radius: 3px;
+    background-color: var(--subtext1);
+    padding: 2px 4px;
+}
+.media-menu .source.spotify { background-color: var(--green); color: var(--base); }
+.media-menu .source.chrome, .media-menu .source.edge { background-color: var(--blue); color: var(--base); }
+.media-menu .btn {
+    /* font-family: "JetBrainsMono Nerd Font", monospace; */
+    font-size: 14px;
+    font-weight: 400;
+    margin: 10px 2px 0px 2px;
+    min-width: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    max-height: 40px;
+    border-radius: 20px;
+    color: var(--text);
+    background-color: transparent;
+}
+.media-menu .btn:hover { background-color: var(--surface1); }
+.media-menu .btn.play { background-color: var(--surface0); font-size: 18px; }
+.media-menu .playback-time { font-size: 13px; font-family: 'Segoe UI'; color: var(--overlay1); min-width: 100px; }
+.media-menu .progress-slider { height: 20px; margin: 0 4px 5px 4px; border-radius: 3px; }
+.media-menu .progress-slider::groove { height: 2px; border-radius: 3px; background: var(--surface1); }
+.media-menu .progress-slider::sub-page { background: var(--blue); border-radius: 3px; height: 4px; }
+
+/* Microphone Main Bar Styling */
+.microphone-widget .label, 
+.microphone-widget .icon { 
+    color: #f2cdcd; /* Catppuccin Flamingo */
+    padding-right: 4px; 
+}
+
+/* === Microphone Flyout Menu === */
+.microphone-menu { 
+    background-color: var(--base); 
+    border: 1px solid var(--surface1); 
+    border-radius: 8px; 
+    padding: 10px; 
+}
+
+/* Brightness Main Bar Styling */
+.brightness-widget .label, 
+.brightness-widget .icon { 
+    color: #fab387; /* Catppuccin Peach */
+    padding-right: 4px; 
+}
+
+/* === Brightness Flyout Menu === */
+.brightness-menu { 
+    background-color: var(--base); 
+    border: 1px solid var(--surface1); 
+    border-radius: 8px; 
+    padding: 10px; 
+}
+/* === Power Menu Widget & Popup === */
+
+/* Main Bar Button */
+.power-menu-widget .label {
+    color: var(--red);
+    font-size: 13px;
+}
+
+/* The Modal Container */
+.power-menu-popup {
+    background-color: var(--base);
+    border: 1px solid var(--blue); 
+    border-radius: 6px;
+    padding: 20px;
+    /* Keeps the box tight around the 6 buttons */
+    max-width: 530px; 
+    margin: 0 auto;
+}
+
+/* The Square Action Buttons */
+.power-menu-popup .button {
+    width: 80px;
+    height: 80px;
+    border-radius: 6px;
+    background-color: var(--surface0);
+    margin: 0 4px; 
+    padding: 0;
+    border: none;
+}
+
+/* Nuke the text labels completely so icons can center */
+.power-menu-popup .button .label {
+    font-size: 0px !important;
+    color: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-height: 0px !important;
+}
+
+/* Center the icons vertically */
+.power-menu-popup .button .icon {
+    font-size: 32px;
+    color: var(--text);
+    margin-top: 24px; 
+    margin-bottom: 0;
+    padding: 0;
+}
+
+/* Hover States */
+.power-menu-popup .button:hover {
+    background-color: var(--mauve); 
+}
+.power-menu-popup .button:hover .icon {
+    color: var(--base); 
+}
+
+/* Uptime Pill Styling */
+.uptime {
+    background-color: var(--green);
+    color: var(--base);
+    /* font-family: "JetBrainsMono Nerd Font", monospace; */
+    font-size: 14px;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 6px;
+    /* Matches the width of the 6 buttons perfectly */
+    max-width: 530px; 
+    margin: 20px auto; 
 }
 
 /* Module Text Colors */

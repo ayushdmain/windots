@@ -41,6 +41,7 @@ bars:
       left: 
         - "arch_logo"
         - "glazewm_workspaces"
+        - "media"
       center:
         - "clock"
       right:
@@ -48,6 +49,7 @@ bars:
         - "bluetooth"
         - "memory"
         - "wifi"
+        - "microphone"
         - "volume"
         # - "battery"
         - "power_menu"
@@ -82,6 +84,38 @@ widgets:
       hide_empty_workspaces: true
       animation: true
 
+  media:
+    type: "yasb.media.MediaWidget"
+    options:
+      label: "󰎆 {title}"
+      label_alt: "󰎆 {title} - {artist}"
+      hide_empty: true
+      show_thumbnail: false
+      controls_hide: false     # This shows the controls on the main bar
+      controls_left: false     # Set to true if you want buttons on the left of the text 
+      max_field_size:
+        label: 25
+        label_alt: 40
+      callbacks: 
+        on_left: "toggle_media_menu"
+        on_middle: "toggle_play_pause"
+        on_right: "toggle_label"
+      media_menu: 
+        blur: true
+        border_color: "system"
+        alignment: "left"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+        thumbnail_corner_radius: 4
+        thumbnail_size: 80
+        show_source: true
+      media_menu_icons:
+        play: "󰐊"
+        pause: "󰏤"
+        prev_track: "󰒮"
+        next_track: "󰒭"
+
   # ---------------------------------------------------------------------------
   # CENTER MODULES
   # ---------------------------------------------------------------------------
@@ -89,8 +123,8 @@ widgets:
   clock:
     type: "yasb.clock.ClockWidget"
     options:
-      label: "  {%I:%M %p}"
-      label_alt: "  {%a, %d %b %Y}"
+      label: " {%H:%M:%S}"
+      label_alt: " {%a,%Y-%m-%d %H:%M:%S}"
       locale: "en_US"
       timezones: []
       calendar: 
@@ -138,7 +172,7 @@ widgets:
   memory:
     type: "yasb.memory.MemoryWidget"
     options:
-      label: "󰍛 {percent}%"
+      label: "󰍛 {virtual_mem_percent}%"
       label_alt: "VIRT: {virtual_mem_used}/{virtual_mem_total}"
       update_interval: 5000
       callbacks: 
@@ -146,6 +180,7 @@ widgets:
         on_right: "toggle_label" 
       progress_bar: 
         enabled: false
+      hide_decimal: true
 
   wifi:
     type: "yasb.wifi.WifiWidget"
@@ -168,6 +203,26 @@ widgets:
         offset_top: 6
         offset_left: 0
 
+  microphone:
+    type: "yasb.microphone.MicrophoneWidget"
+    options:
+      label: "<span>{icon}</span>"
+      label_alt: "<span>{icon}</span> {level}%"
+      icons: 
+        normal: "" # You can also use "󰍬" if you prefer
+        muted: ""  # You can also use "󰍭" if you prefer
+      callbacks: 
+        on_left: "toggle_mic_menu"
+        on_middle: "exec cmd.exe /c start ms-settings:sound"
+        on_right: "toggle_mute"
+      mic_menu:
+        blur: true
+        border_color: "system"
+        alignment: "center"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+        
   volume:
     type: "yasb.volume.VolumeWidget"
     options:
@@ -192,6 +247,40 @@ widgets:
         show_apps: true
         show_app_labels: false
         show_app_icons: true
+        
+  brightness:
+    type: "yasb.brightness.BrightnessWidget"
+    options:
+      label: "<span>{icon}</span>"
+      label_alt: "Brightness {percent}%"
+      hide_unsupported: true
+      brightness_toggle_level: [0, 50, 100]
+      brightness_icons: ["󰃞", "󰃝", "󰃟", "󰃠"] # 0-25%, 26-50%, 51-75%, 76-100%
+      callbacks: 
+        on_left: "toggle_brightness_menu"
+        on_right: "toggle_label" 
+      brightness_menu:
+        blur: true
+        border_color: "system"
+        alignment: "center"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+
+  power_menu:
+      type: "yasb.power_menu.PowerMenuWidget"
+      options:
+        label: "󰤆"
+        uptime: true
+        blur_background: true
+        button_row: 6
+        buttons:
+          shutdown: ["", "Shut Down"]
+          restart: ["", "Restart"]
+          signout: ["󰍃", "Sign out"]
+          hibernate: ["", "Hibernate"]
+          sleep: ["", "Sleep"]
+          cancel: ["", "Close"]
 
   # battery:
   #   type: "yasb.battery.BatteryWidget"
@@ -204,16 +293,16 @@ widgets:
   #       charging: ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
   #       discharging: ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
 
-  power_menu:
-    type: "yasb.power_menu.PowerMenuWidget"
-    options:
-      label: "󰤆"
-      uptime: true
-      blur_background: true
-      buttons:
-        shutdown: ["\uf011", "Shut Down"]
-        restart: ["\uead2", "Restart"]
-        signout: ["\udb80\udf43", "Sign out"]
-        hibernate: ["\uf28e", "Hibernate"]
-        sleep: ["\u23fe", "Sleep"]
-        cancel: ["\ueab8", "Close"]
+  # power_menu:
+  #   type: "yasb.power_menu.PowerMenuWidget"
+  #   options:
+  #     label: "󰤆"
+  #     uptime: true
+  #     blur_background: true
+  #     buttons:
+  #       shutdown: ["\uf011", "Shut Down"]
+  #       restart: ["\uead2", "Restart"]
+  #       signout: ["\udb80\udf43", "Sign out"]
+  #       hibernate: ["\uf28e", "Hibernate"]
+  #       sleep: ["\u23fe", "Sleep"]
+  #       cancel: ["\ueab8", "Close"]
