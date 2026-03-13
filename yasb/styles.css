@@ -2,9 +2,6 @@
    GLOBAL THEME & VARIABLES (Catppuccin Mocha)
    ============================================================================ */
 :root {
-    /* * Catppuccin Mocha Global Palette 
-     * Changing these hex codes will globally update the theme across all widgets.
-     */
     --rosewater: #f5e0dc;
     --flamingo: #f2cdcd;
     --pink: #f5c2e7;
@@ -19,1010 +16,201 @@
     --sapphire: #74c7ec;
     --blue: #89b4fa;
     --lavender: #b4befe;
-
-    /* Text tones */
     --text: #cdd6f4;
     --subtext1: #bac2de;
     --subtext0: #a6adc8;
-
-    /* Overlays (used for borders, shadows, disabled text) */
     --overlay2: #9399b2;
     --overlay1: #7f849c;
     --overlay0: #6c7086;
-
-    /* Surfaces (used for widget backgrounds, hover states, menus) */
     --surface2: #585b70;
     --surface1: #45475a;
     --surface0: #313244;
     --base: #1e1e2e;
     --mantle: #181825;
     --crust-color: #11111b;
-
-    /* Aliases for specific widgets */
-    --orange: var(--peach); 
-    
-    /* * MAIN BAR OPACITY & BACKGROUND
-     * Tweak '--bar-alpha' to 1 (solid) or 0.5 (transparent) for quick switching.
-     */
-    --bar-alpha: 0.5;
-    /* Mocha Crust RGB: 17, 17, 27 applied with the alpha value */
-    --crust: rgba(17, 17, 27, var(--bar-alpha)); 
-
-    /* Legacy aliases used in older YASB widget structures */
-    --text1: var(--text);
-    --text2: var(--subtext0);
-    --text3: var(--overlay1);
-    --text4: var(--overlay0);
-    --bg-color1: var(--surface0);
-    --bg-color2: var(--surface1);
 }
 
 /* ============================================================================
-   BASE TYPOGRAPHY & BAR STYLING
+   WAYBAR BASE STYLES PORT
    ============================================================================ */
-/* Applies to everything unless overridden */
 * {
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    font-family: "JetBrainsMono Nerd Font", monospace;
     font-size: 13px;
-    color: var(--text);
-    font-weight: 600;
-    font-family: "JetBrainsMono NFP";
     margin: 0;
     padding: 0;
 }
 
-/* The main outer wrapper for the entire top/bottom bar */
+/* Main Bar Background */
 .yasb-bar {
-    background-color: var(--crust) !important;
-    backdrop-filter: blur(16px) saturate(120%);
-    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    background-color: #1e1e2e !important;
+    transition-property: background-color, opacity;
+    transition-duration: 0.25s;
+    /* Remove YASB blur to match Waybar's solid color */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
 }
 
-/* ============================================================================
-   GLOBAL UI ELEMENTS (Tooltips, Menus, Groupers)
-   ============================================================================ */
-
-/* ToolTip Popups (Hover over widgets) */
+/* ToolTip Popups */
 .tooltip {
-    background-color: var(--base);
-    border: 1px solid var(--surface0);
-    border-radius: 4px;
-    color: var(--text);
-    padding: 4px 8px 5px 8px;
-    font-size: 15px;
-    font-family: 'Segoe UI';
-    font-weight: 600;
-    margin-top: 4px;
-}
-
-/* Circular progress rings (e.g., CPU, Memory) */
-.progress-circle {
-    padding-right: 4px;
-}
-
-/* Global Right-Click / Context Menu style */
-.context-menu,
-.context-menu .menu-checkbox {
-    background-color: var(--base);
-    border: 1px solid var(--surface0);
-    padding: 4px 0px;
-    font-family: 'Segoe UI';
-    font-size: 12px;
-    color: var(--text);
-}
-.context-menu::right-arrow {
-    width: 8px;
-    height: 8px;
-    padding-right: 24px;
-}
-.context-menu::item,
-.context-menu .menu-checkbox {
-    background-color: transparent;
-    padding: 6px 12px;
-    margin: 2px 6px;
-    border-radius: 4px;
-    min-width: 100px;
-}
-.context-menu::item:selected,
-.context-menu .menu-checkbox:hover {
-    background-color: var(--surface1);
-    color: var(--text);
-}
-.context-menu::separator {
-    height: 1px;
-    background-color: var(--surface1);
-    margin: 4px 8px;
-}
-.context-menu::item:disabled {
-    color: var(--overlay0);
-    background-color: transparent;
-}
-.context-menu .menu-checkbox .checkbox {
-    border: none;
-    padding: 8px 16px;
-    font-size: 12px;
-    margin: 0;
-    color: var(--text);
-    font-family: 'Segoe UI'
-}
-.context-menu .submenu::item:disabled {
-    margin: 0;
-    padding-left: 16px;
-}
-
-/* Checkbox specific context menu items */
-.context-menu .menu-checkbox .checkbox:unchecked {
-    color: var(--overlay0);
-}
-.context-menu .menu-checkbox .checkbox::indicator {
-    width: 12px;
-    height: 12px;
-    margin-left: 0px;
-    margin-right: 8px;
-}
-.context-menu .menu-checkbox .checkbox::indicator:unchecked {
-    background: var(--surface1);
-    border-radius: 2px;
-}
-.context-menu .menu-checkbox .checkbox::indicator:checked {
-    background: var(--blue);
-    border-radius: 2px;
-}
-.context-menu .menu-checkbox .checkbox:focus {
-    outline: none;
-}
-
-/* Base Widget Container */
-.widget {
-    padding: 0 3px;
-    margin: 0;
-}
-.icon {
-    font-size: 11px;
-    padding-right: 4px;
-}
-.widget .label {
-    padding: 0px 2px;
-}
-
-/* Grouped Widget Container (Used for metrics & system controls) */
-.grouped-widgets .container {
-    background-color: transparent;
-    margin: 4px 0 4px 0;
-    border-radius: 12px;
-    border: 1px solid var(--surface1);
-}
-
-/* ============================================================================
-   LEFT WIDGETS (Home, Workspaces, Media)
-   ============================================================================ */
-
-/* === Home Widget === */
-.home-widget {
-    padding-right: 0;
-}
-.home-widget .label {
-    color: var(--blue);
-    font-size: 17px;
-}
-.home-widget .label:hover {
-    color: var(--text);
-}
-
-/* Dropdown menu triggered by Home Widget */
-.home-menu {
-    background-color: var(--crust);
     border-radius: 8px;
+    padding: 10px;
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    border: none;
 }
-.home-menu .menu-item {
-    padding: 8px 48px 9px 16px;
-    font-size: 12px;
-    font-family: 'Segoe UI';
-    color: var(--text);
-    font-weight: 600;
-}
-.home-menu .menu-item:hover {
-    background-color: rgba(147, 153, 178, 0.15); /* Mocha Overlay2 RGB */
-    color: var(--text);
-}
-.home-menu .separator {
-    max-height: 1px;
-    background-color: rgba(147, 153, 178, 0.3);
-}
-
-/* === Glazewm Workspaces === */
-.glazewm-workspaces {
-    margin: 4px 0;
-}
-.glazewm-workspaces .widget-container {
-    background-color: transparent;
-    border-radius: 12px;
-    border: 1px solid var(--surface1);
+.tooltip .label {
     padding: 2px 4px;
-}
-/* Individual Workspace Buttons */
-.glazewm-workspaces .ws-btn {
-    font-size: 14px;
-    border: none;
-    background: transparent;
-    color: var(--overlay1);
-    padding: 2px 8px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 120ms ease, color 120ms ease;
-}
-.glazewm-workspaces .ws-btn:hover {
-    background-color: rgba(205, 214, 244, 0.06); /* Mocha Text RGB */
-    color: var(--text);
-}
-
-/* Active Workspace (Currently focused) */
-.glazewm-workspaces .ws-btn.active_populated,
-.glazewm-workspaces .ws-btn[aria-current="true"] {
-    color: var(--text);
-    background-color: var(--surface1);
-    border: 1px solid var(--surface2);
-    font-weight: 700;
-}
-
-/* Fallback for Windows Desktops/Active state rules */
-.windows-desktops .ws-btn.active_empty,
-.windows-desktops .ws-btn.active.empty,
-.windows-desktops .ws-btn.active_populated,
-.glazewm-workspaces .ws-btn.active.populated {
-    color: var(--text);
-    background-color: var(--surface1);
-    border: 1px solid var(--surface2);
-    font-weight: 700;
-}
-
-/* === Media Widget === */
-.media-widget .label {
-    color: var(--subtext1);
-    padding: 0px;
-    padding-right: 4px;
-    font-size: 12px;
-}
-/* Media Control Buttons (Play, Pause, Skip) */
-.media-widget .btn {
-    background: transparent;
-    color: var(--overlay1);
-    padding: 0 4px;
-    margin: 0;
-    font-family: "Segoe Fluent Icons";
-    font-weight: 400;
-}
-.media-widget .btn:hover {
-    background-color: rgba(205, 214, 244, 0.06);
-    color: var(--text);
-}
-.media-widget .btn.play {
-    color: var(--text);
-    font-size: 16px;
-}
-.media-widget .btn.disabled:hover,
-.media-widget .btn.disabled {
-    color: var(--surface2);
-    font-size: 12px;
-    background-color: rgba(0, 0, 0, 0);
-}
-/* Media Progress Bar (In the main bar) */
-.media-widget .progress-bar {
-    max-height: 2px;
     background-color: transparent;
-    margin-bottom: 3px;
-    border: none;
-}
-.media-widget .progress-bar::chunk {
-    background-color: var(--blue);
-    border-radius: 2px;
-}
-
-/* === Media Flyout Menu === */
-.media-menu {
-    min-width: 360px;
-    max-width: 360px;
-    background-color: var(--crust)
-}
-.media-menu .title,
-.media-menu .artist,
-.media-menu .source {
-    font-size: 14px;
-    font-weight: 600;
-    margin-left: 10px;
-    font-family: 'Segoe UI'
-}
-.media-menu .artist {
-    font-size: 13px;
-    color: var(--overlay0);
-    margin-top: 0px;
-    margin-bottom: 8px;
-}
-/* App Source Badges (Spotify, Browsers, etc.) */
-.media-menu .source {
-    font-size: 11px;
-    color: var(--crust-color);
-    font-weight: normal;
-    border-radius: 3px;
-    background-color: var(--subtext1);
-    padding: 2px 4px;
-}
-.media-menu .source.firefox {
-    background-color: var(--peach);
-    color: var(--base);
-}
-.media-menu .source.spotify {
-    background-color: var(--green);
-    color: var(--base);
-}
-.media-menu .source.brave {
-    background-color: var(--peach);
-    color: var(--base);
-}
-.media-menu .source.chrome {
-    background-color: var(--blue);
-    color: var(--base);
-}
-/* Media Menu Controls */
-.media-menu .btn {
-    font-family: "Segoe Fluent Icons";
-    font-size: 14px;
-    font-weight: 400;
-    margin: 10px 2px 0px 2px;
-    min-width: 40px;
-    max-width: 40px;
-    min-height: 40px;
-    max-height: 40px;
-    border-radius: 20px;
-}
-.media-menu .btn.prev {
-    margin-left: 10px;
-}
-.media-menu .btn:hover {
-    color: var(--text);
-    background-color: rgba(205, 214, 244, 0.1);
-}
-.media-menu .btn.play {
-    background-color: rgba(205, 214, 244, 0.1);
-    font-size: 20px
-}
-.media-menu .btn.disabled:hover,
-.media-menu .btn.disabled {
-    color: var(--surface2);
-    background-color: rgba(0, 0, 0, 0);
-}
-/* Media Menu Timeline */
-.media-menu .playback-time {
-    font-size: 13px;
-    font-family: 'Segoe UI';
-    color: var(--overlay1);
-    margin-top: 0px;
-    min-width: 100px;
-}
-.media-menu .progress-slider {
-    height: 20px;
-    margin: 0 4px 5px 4px;
-    border-radius: 3px;
-}
-.media-menu .progress-slider::groove {
-    background: transparent;
-    height: 2px;
-    border-radius: 3px;
-    background: rgba(205, 214, 244, 0.1);
-}
-.media-menu .progress-slider::groove:hover {
-    background: transparent;
-    height: 6px;
-    border-radius: 3px;
-    background: rgba(205, 214, 244, 0.2);
-}
-.media-menu .progress-slider::sub-page {
-    background: var(--blue);
-    border-radius: 3px;
-    height: 4px;
+    color: #cdd6f4;
 }
 
 /* ============================================================================
-   CENTER WIDGETS (Clock, Weather)
+   MODULE PILLS (The classic Waybar layout)
    ============================================================================ */
 
-/* === Calendar Widget (Clock Flyout) === */
-.calendar {
-    background-color: rgba(30, 30, 46, 0.4); /* Mocha Base RGB */
-}
-.calendar .calendar-table,
-.calendar .calendar-table::item {
-    background-color: transparent;
-    color: var(--subtext1);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    border: none;
-    outline: none;
-}
-.calendar .calendar-table::item:selected {
-    color: var(--base);
-    background-color: var(--blue);
-    border-radius: 10px;
-}
-.calendar .day-label {
-    margin-top: 20px;
-}
-.calendar .day-label,
-.calendar .month-label,
-.calendar .date-label,
-.calendar .week-label,
-.calendar .holiday-label {
-    font-family: 'Segoe UI';
-    font-size: 16px;
-    color: var(--text);
-    font-weight: 700;
-    min-width: 180px;
-    max-width: 180px;
-}
-.calendar .week-label,
-.calendar .holiday-label {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--subtext1);
-}
-.calendar .holiday-label {
-    color: var(--overlay1);
-    font-weight: 700;
-}
-.calendar .month-label {
-    font-weight: normal;
-}
-.calendar .date-label {
-    font-size: 88px;
-    font-weight: 900;
-    color: var(--text);
-    margin-top: -20px;
-}
-
-/* === Open Meteo Widget (Weather Flyout) === */
-.open-meteo-widget .icon {
-    font-size: 20px;
-    margin: 0 2px 1px 0;
-    color: var(--maroon);
-}
-.open-meteo-card {
-    background-color: var(--mantle);
-}
-
-/* Legacy Weather Styles (If you switch back to standard weather) */
-.weather-widget .icon { font-size: 20px; }
-.weather-card { background-color: rgba(30, 30, 46, 0.5); }
-.weather-card-today {
-    border: 1px solid var(--surface0);
-    border-radius: 8px;
-    background-color: rgba(30, 30, 46, 0.2);
-}
-.weather-card-today .label { font-size: 12px; }
-.weather-card-today .label.location {
-    font-size: 24px;
-    font-weight: 700;
-}
-.weather-card-today .label.alert {
-    font-size: 12px;
-    font-weight: 700;
-    background-color: rgba(249, 226, 175, 0.05); /* Mocha Yellow RGB */
-    border: 1px solid rgba(249, 226, 175, 0.1);
-    color: var(--yellow);
-    border-radius: 6px;
-    padding: 5px 0;
-}
-.weather-card-day {
-    border: 1px solid var(--surface1);
-    border-radius: 8px;
-    background-color: rgba(30, 30, 46, 0.2);
-}
-.weather-card-day.active {
-    background-color: rgba(30, 30, 46, 0.6);
-    border: 1px solid var(--surface1);
-}
-.weather-card-day:hover {
-    background-color: rgba(49, 50, 68, 0.6); /* Mocha Surface0 RGB */
-}
-.weather-card-day .label { font-size: 12px; }
-.weather-card .hourly-container {
-    border: 1px solid var(--surface0);
-    background-color: var(--surface2);
-    border-radius: 8px;
-    min-height: 150px;
-}
-.weather-card .hourly-data {
-    background-color: var(--yellow);
-    font-size: 12px;
-    font-weight: bold;
-}
-
-/* ============================================================================
-   RIGHT WIDGETS (Systray, Metrics, System Controls)
-   ============================================================================ */
-
-/* === System Tray (Systray) === */
+/* Grouping the main modules to share the pill background */
+.bluetooth-widget,
+.memory-widget,
+.power-menu-widget,
+.battery-widget,
+.volume-widget,
+.wifi-widget,
+.clock-widget,
 .systray {
-    background: transparent;
-    border: none;
-    margin: 0;
-    padding: 0;
-}
-.systray .button {
-    border-radius: 4px;
-    padding: 2px 2px;
-    background-color: transparent;
-}
-.systray .button:hover,
-.systray .unpinned-visibility-btn:hover {
-    background: rgba(205, 214, 244, 0.1);
-}
-.systray .unpinned-visibility-btn {
-    height: 20px;
-    width: 16px;
-    background-color: transparent;
-    border: none;
-    font-size: 14px;
-}
-.systray .unpinned-visibility-btn:hover {
-    border-radius: 4px;
-}
-
-/* === Traffic Widget (Network Speeds) === */
-.traffic-widget .label {
-    padding-right: 8px;
-}
-/* Traffic Dropdown Menu */
-.traffic-menu {
-    background-color: rgba(30, 30, 46, 0.45);
-    border-radius: 8px;
-    border: 1px solid var(--surface1);
-    min-width: 320px;
-}
-.traffic-menu .header {
-    background-color: rgba(30, 30, 46, 0.2);
-    border-bottom: 1px solid var(--surface1);
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    margin: 4px 4px;
+    padding: 3px 10px;
+    background-color: #313244;
+    border-radius: 3px;
+    color: #cdd6f4;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 12px;
-}
-.traffic-menu .header .title {
-    padding: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    font-family: 'Segoe UI';
-    color: var(--text);
-}
-.traffic-menu .header .reset-button {
-    font-size: 12px;
-    padding: 4px 8px;
-    margin-right: 0;
-    font-family: 'Segoe UI';
-    border-radius: 4px;
-    font-weight: 600;
-    background-color: transparent;
-    border: 1px solid transparent;
-    color: var(--blue);
-    cursor: pointer;
-}
-.traffic-menu .reset-button:hover {
-    color: var(--text);
-    background-color: rgba(137, 180, 250, 0.15); /* Mocha Blue RGB */
-    border-color: rgba(137, 180, 250, 0.35);
-}
-.traffic-menu .reset-button:pressed {
-    color: var(--text);
-    background-color: rgba(137, 180, 250, 0.25);
-    border-color: rgba(137, 180, 250, 0.45);
 }
 
-/* Network Speed Display Blocks */
-.traffic-menu .download-speed,
-.traffic-menu .upload-speed {
-    background-color: transparent;
-    padding: 4px 10px;
-    margin-right: 12px;
-    margin-left: 12px;
-    margin-top: 16px;
-    margin-bottom: 0;
-    border-bottom: 1px solid var(--surface1);
-}
-.traffic-menu .download-speed {
-    margin-left: 12px;
-    margin-right: 12px;
-}
-.traffic-menu .speed-separator {
-    max-width: 1px;
-    background-color: rgba(137, 180, 250, 0.35);
-    margin: 32px 0 16px 0;
-}
-.traffic-menu .upload-speed-value,
-.traffic-menu .download-speed-value {
-    font-size: 24px;
-    font-weight: 900;
-    font-family: 'Segoe UI';
-    color: var(--text);
-}
-.traffic-menu .upload-speed-unit,
-.traffic-menu .download-speed-unit {
-    font-size: 13px;
-    font-family: 'Segoe UI';
-    font-weight: 600;
-    padding-top: 4px;
-    color: var(--overlay1);
-}
-.traffic-menu .upload-speed-placeholder,
-.traffic-menu .download-speed-placeholder {
-    color: var(--overlay0);
-    font-size: 11px;
-    font-family: 'Segoe UI';
-    padding: 0 0 4px 0;
+/* Hover state for all pills */
+.bluetooth-widget:hover,
+.memory-widget:hover,
+.power-menu-widget:hover,
+.battery-widget:hover,
+.volume-widget:hover,
+.wifi-widget:hover,
+.clock-widget:hover,
+.systray:hover {
+    background-color: #45475a;
 }
 
-/* Network Usage Sections (Session, Today, All Time) */
-.traffic-menu .section-title {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--blue);
-    margin-bottom: 4px;
-    font-family: 'Segoe UI';
-}
-.traffic-menu .session-section,
-.traffic-menu .today-section,
-.traffic-menu .alltime-section {
-    margin: 8px 8px 0 8px;
-    padding: 0 10px 10px 10px;
-    background-color: transparent;
-    border-bottom: 1px solid var(--surface1);
-}
-.traffic-menu .data-text {
-    font-size: 13px;
-    color: var(--overlay1);
-    padding: 2px 0;
-    font-family: 'Segoe UI';
-}
-.traffic-menu .data-value {
-    font-weight: 600;
-    font-size: 13px;
-    font-family: 'Segoe UI';
-    padding: 2px 0;
-    color: var(--text);
-}
-
-/* Network Interface and Internet connection status */
-.traffic-menu .interface-info,
-.traffic-menu .internet-info {
-    font-size: 12px;
-    color: var(--overlay0);
-    padding: 8px 12px;
-    font-family: 'Segoe UI';
-}
-.traffic-menu .internet-info {
-    background-color: rgba(30, 30, 46, 0.15);
-}
-.traffic-menu .internet-info.connected {
-    background-color: rgba(166, 227, 161, 0.12); /* Mocha Green RGB */
-    color: var(--green);
-}
-.traffic-menu .internet-info.disconnected {
-    background-color: rgba(243, 139, 168, 0.12); /* Mocha Red RGB */
-    color: var(--red);
-}
-
-/* === CPU and Memory Widgets === */
-.cpu-widget .icon {
-    color: var(--peach);
-}
-.memory-widget .label,
-.cpu-widget .label {
-    padding-right: 8px;
-}
-
-/* === System Controls Group (Quick Toggles Grouper) === */
-.controls-group .widget {
-    padding: 0 6px;
-    border-radius: 8px;
-    transition: background-color 120ms ease;
-}
-.controls-group .icon,
-.controls-group .label {
-    font-size: 14px;
-}
-/* Default Icon Colors */
-.controls-group .bluetooth-widget .icon,
-.controls-group .microphone-widget .icon,
-.controls-group .volume-widget .icon,
-.controls-group .wifi-widget .icon {
-    color: var(--text);
-}
-/* Power Button Color */
-.controls-group .power-menu-widget .label,
-.controls-group .power-menu-widget:hover .label {
-    color: var(--red);
-}
-/* Notifications Icon Color */
-.controls-group .notifications-widget .icon,
-.controls-group .notification-widget .icon,
-.notification-widget .icon {
-    color: var(--blue);
-}
-/* Hover States for Controls */
-.controls-group .widget:hover .icon,
-.controls-group .widget:hover .label {
-    color: var(--text);
-}
-.controls-group .power-menu-widget:hover .label {
-    color: var(--red);
-}
-.controls-group .notifications-widget:hover .icon,
-.controls-group .notification-widget:hover .icon {
-    color: var(--blue);
-}
-
-/* === Individual System Control Menus === */
-
-/* Microphone */
-.microphone-menu { background-color: var(--crust) }
-.microphone-widget .icon {
-    font-size: 14px;
-    color: var(--green);
-}
-
-/* Audio / Volume */
-.audio-menu { background-color: var(--crust) }
-.volume-widget .icon {
-    font-size: 12px;
-    color: var(--green);
-}
-
-/* Brightness */
-.brightness-menu { background-color: var(--crust) }
-.brightness-widget .widget-container .icon {
-    font-size: 14px;
-    color: var(--green);
-}
-
-/* === Wi‑Fi Widget === */
-.wifi-widget,
-.wifi-widget .icon,
-.wifi-widget .label {
-    cursor: pointer !important;
-}
-.controls-group .wifi-widget,
-.controls-group .wifi-widget .widget-container {
-    border-radius: 8px;
-}
-.controls-group .wifi-widget:hover {
-    background-color: rgba(205, 214, 244, 0.06);
-}
-.controls-group .wifi-widget .widget-container:hover {
-    background-color: transparent !important;
-}
-
-/* === Wi‑Fi Dropdown Menu === */
-.wifi-menu {
-    font-family: 'Segoe UI';
-    background-color: var(--crust);
-    color: var(--text);
-    border: 1px solid var(--surface1);
-    border-radius: 8px;
-    max-height: 350px;
-    min-height: 375px;
-    min-width: 375px;
-}
-.wifi-menu .progress-bar {
-    max-height: 2px;
-}
-.wifi-menu .progress-bar::chunk {
-    background-color: var(--blue);
-}
-.wifi-menu .header {
-    font-family: 'Segoe UI';
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 2px;
-    padding: 12px;
-    background-color: var(--surface0);
-    color: var(--text);
-    border-bottom: 1px solid var(--surface1);
-}
-.wifi-menu .error-message {
-    font-family: 'Segoe UI';
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 2px;
-    padding: 12px;
-    background-color: var(--red);
-    color: var(--base);
-    border-bottom: 1px solid var(--surface1);
-}
-.wifi-menu .wifi-list {
-    background-color: var(--base);
-    margin-right: 3px;
-}
-.wifi-menu .wifi-item {
-    min-height: 35px;
-    padding: 2px 12px;
-    margin: 2px 4px;
-}
-.wifi-menu .wifi-item:hover {
-    background-color: rgba(205, 214, 244, 0.06);
-    border-radius: 6px;
-}
-.wifi-menu .wifi-item[active=true] {
-    background-color: var(--surface1);
-    border: 1px solid var(--surface2);
-    font-size: 14px;
-    border-radius: 6px;
-    min-height: 80px;
-}
-.wifi-menu .wifi-item .icon {
-    font-family: 'Segoe Fluent Icons';
-    font-size: 26px;
-    margin-right: 10px;
-    color: var(--text);
-}
-.wifi-menu .wifi-item .name {
-    font-family: 'Segoe UI';
-    font-size: 14px;
-    margin-right: 10px;
-    color: var(--text);
-}
-.wifi-menu .wifi-item .password {
-    font-family: 'Segoe UI';
-    background-color: transparent;
-    font-size: 14px;
-}
-.wifi-menu .wifi-item .status {
-    font-family: 'Segoe UI';
-    font-size: 14px;
-    color: var(--overlay0);
-}
-.wifi-menu .wifi-item .strength {
-    font-family: 'Segoe UI';
-    font-size: 14px;
-    color: var(--overlay0);
-}
-.wifi-menu .wifi-item .controls-container {
-    padding-top: 8px;
-}
-.wifi-menu .wifi-item .connect {
-    background-color: rgba(205, 214, 244, 0.15);
-    padding: 4px 30px;
-    border-radius: 4px;
-    border: 1px solid var(--surface1);
-    color: var(--text);
-    font-size: 14px;
-}
-.wifi-menu .wifi-item .connect:hover {
-    background-color: rgba(205, 214, 244, 0.2);
-}
-.wifi-menu .wifi-item .connect:pressed {
-    background-color: rgba(205, 214, 244, 0.3);
-}
-/* Wifi Menu Footer (Refresh/Settings) */
-.wifi-menu .footer {
-    font-size: 12px;
-    font-weight: 600;
-    padding: 12px;
-    margin-top: 2px;
-    color: var(--overlay0);
-    background-color: var(--surface0);
-    border-top: 1px solid var(--surface1);
-}
-.wifi-menu .footer .settings-button {
-    font-family: 'Segoe UI';
-    background-color: transparent;
-    border: none;
-    padding: 0 2px;
-    min-width: 26px;
-    min-height: 26px;
-    color: var(--text);
-}
-.wifi-menu .footer .refresh-icon {
-    font-family: 'Segoe Fluent Icons';
-    background-color: transparent;
-    border: none;
-    min-width: 26px;
-    min-height: 26px;
-    color: var(--text);
-}
-.wifi-menu .footer .refresh-icon:hover {
-    background-color: rgba(205, 214, 244, 0.1);
-    border-radius: 4px;
-}
-
-/* === Notifications Widget === */
-.notification-widget .icon.new-notification {
-    color: var(--blue);
-}
-
-/* === Power Menu Widget & Popup === */
-.power-menu-widget .label {
-    color: var(--red);
-    font-size: 13px;
-}
-/* Fullscreen Power Menu Overlay */
-.power-menu-popup {
-    background-color: transparent;
-}
-/* Big power option buttons (Shutdown, Restart, etc.) */
-.power-menu-popup .button {
+/* Base formatting for spans inside widgets */
+.widget .label, .widget .icon {
     padding: 0;
-    width: 180px;
-    height: 230px;
-    border-radius: 8px;
-    background-color: var(--bg-color1);
-    border: 4px solid transparent;
-    margin: 0px;
+    margin: 0;
+}
+
+/* ============================================================================
+   SPECIFIC MODULE COLORS & TWEAKS
+   ============================================================================ */
+
+/* Custom Logo (Arch) */
+.home-widget {
+    padding: 0 6px;
+    margin: 4px 6px 4px 0px;
+    border-radius: 0;
+    background: transparent !important;
+}
+.home-widget .label {
+    font-size: 18px;
+    color: #89b4fa; /* Blue */
+}
+
+/* GlazeWM Workspaces */
+.glazewm-workspaces {
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+.glazewm-workspaces .widget-container {
+    border: none;
+    background: transparent;
+    padding: 0;
+}
+.glazewm-workspaces .ws-btn {
+    all: initial;
+    min-width: 0;
+    padding: 3px 9px;
+    margin: 4px 4px;
+    border-radius: 3px;
+    background-color: #313244;
+    color: #b4befe;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 13px;
     cursor: pointer;
+    text-align: center;
 }
-.power-menu-popup .button.hover {
-    background-color: var(--bg-color1);
-    border: 4px solid var(--bg-color1);
+.glazewm-workspaces .ws-btn:hover {
+    background-color: #89b4fa;
+    color: #1e1e2e;
 }
-.power-menu-popup .button .label {
-    margin-bottom: 8px;
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--text3);
-}
-.power-menu-popup .button .icon {
-    font-size: 64px;
-    padding-top: 32px;
-    color: var(--text4);
-}
-.power-menu-popup .button.hover .label,
-.power-menu-popup .button.hover .icon {
-    color: rgba(205, 214, 244, 0.8);
-}
-
-/* Power Option Accent Colors */
-.power-menu-popup .button.shutdown .icon,
-.power-menu-popup .button.shutdown .label { color: var(--red); }
-
-.power-menu-popup .button.restart .icon,
-.power-menu-popup .button.restart .label { color: var(--peach); }
-
-.power-menu-popup .button.sleep .icon,
-.power-menu-popup .button.sleep .label { color: var(--blue); }
-
-.power-menu-popup .button.hibernate .icon,
-.power-menu-popup .button.hibernate .label { color: var(--yellow); }
-
-.power-menu-popup .button.signout .icon,
-.power-menu-popup .button.signout .label { color: var(--lavender); }
-
-.power-menu-popup .button.cancel .icon,
-.power-menu-popup .button.cancel .label { color: var(--overlay0); }
-
-/* Force pointers on power menu interaction */
-.power-menu-popup,
-.power-menu-popup .button,
-.power-menu-popup .button.hover,
-.power-menu-popup .button .label,
-.power-menu-popup .button .icon {
-    cursor: pointer !important;
-}
-.power-menu-popup .button:hover,
-.power-menu-popup .button:hover .label,
-.power-menu-popup .button:hover .icon {
-    cursor: pointer !important;
-    cursor: hand !important;
-}
-.power-menu-popup *,
-.power-menu-popup .button *,
-.power-menu-popup .button.hover * {
-    cursor: pointer !important;
-    cursor: hand !important;
-}
-
-/* System Uptime text inside the power menu */
-.uptime {
-    font-size: 14px;
-    margin-bottom: 10px;
-    color: var(--text4);
+.glazewm-workspaces .ws-btn[aria-current="true"],
+.glazewm-workspaces .ws-btn.active_populated,
+.glazewm-workspaces .ws-btn.active.populated {
+    background-color: #cba6f7;
+    color: #1e1e2e;
     font-weight: 600;
 }
+
+/* Module Text Colors */
+.bluetooth-widget .label, .bluetooth-widget .icon { color: #74c7ec; }
+.memory-widget .label, .memory-widget .icon { color: #fab387; padding-right: 4px; }
+.volume-widget .label, .volume-widget .icon { color: #f9e2af; padding-right: 4px; }
+.wifi-widget .label, .wifi-widget .icon { color: #94e2d5; padding-right: 4px; }
+.clock-widget .label, .clock-widget .icon { color: #ddb6f2; }
+.power-menu-widget .label, .power-menu-widget .icon { color: #f2cdcd; padding-right: 6px; }
+
+/* Battery states */
+.battery-widget .label, .battery-widget .icon { color: #f38ba8; padding-right: 4px; }
+.battery-widget[charging="true"] .label, 
+.battery-widget[charging="true"] .icon { color: #a6e3a1; }
+
+
+/* ============================================================================
+   YASB FLYOUT MENUS (Kept intact from your config for functionality)
+   ============================================================================ */
+
+/* Calendar Flyout */
+.calendar { background-color: var(--base); border: 1px solid var(--surface0); border-radius: 8px; padding: 10px; }
+.calendar .calendar-table::item { background-color: transparent; color: var(--subtext1); font-family: 'Segoe UI'; font-size: 14px;}
+.calendar .calendar-table::item:selected { color: var(--base); background-color: var(--blue); border-radius: 10px; }
+.calendar .day-label, .calendar .month-label, .calendar .date-label { font-family: 'Segoe UI'; font-size: 16px; color: var(--text); font-weight: 700; }
+.calendar .date-label { font-size: 88px; font-weight: 900; margin-top: -20px; }
+
+/* Wi-Fi Dropdown Menu */
+.wifi-menu { font-family: 'Segoe UI'; background-color: var(--base); color: var(--text); border: 1px solid var(--surface1); border-radius: 8px; min-width: 375px; }
+.wifi-menu .header { font-size: 14px; font-weight: 600; padding: 12px; background-color: var(--surface0); border-bottom: 1px solid var(--surface1); }
+.wifi-menu .wifi-item { min-height: 35px; padding: 2px 12px; margin: 2px 4px; }
+.wifi-menu .wifi-item:hover { background-color: rgba(205, 214, 244, 0.06); border-radius: 6px; }
+.wifi-menu .wifi-item[active=true] { background-color: var(--surface1); border: 1px solid var(--surface2); border-radius: 6px; }
+.wifi-menu .wifi-item .icon { font-family: 'Segoe Fluent Icons'; font-size: 26px; margin-right: 10px; }
+.wifi-menu .footer { padding: 12px; background-color: var(--surface0); border-top: 1px solid var(--surface1); }
+
+/* Audio / Volume Menu */
+.audio-menu { background-color: var(--base); border: 1px solid var(--surface1); border-radius: 8px; padding: 10px; }
+
+/* Home / Logo Menu */
+.home-menu { background-color: var(--base); border: 1px solid var(--surface1); border-radius: 8px; }
+.home-menu .menu-item { padding: 8px 48px 9px 16px; font-family: 'Segoe UI'; color: var(--text); }
+.home-menu .menu-item:hover { background-color: var(--surface1); }
+
+/* Power Popup Overlay */
+.power-menu-popup { background-color: rgba(30, 30, 46, 0.85); }
+.power-menu-popup .button { width: 180px; height: 230px; border-radius: 8px; background-color: var(--surface0); cursor: pointer; }
+.power-menu-popup .button:hover { background-color: var(--surface1); }
+.power-menu-popup .button .label { margin-bottom: 8px; font-size: 16px; color: var(--text); }
+.power-menu-popup .button .icon { font-size: 64px; padding-top: 32px; color: var(--overlay1); }
+.power-menu-popup .button.shutdown .icon, .power-menu-popup .button.shutdown .label { color: var(--red); }
+.power-menu-popup .button.restart .icon, .power-menu-popup .button.restart .label { color: var(--peach); }
+.power-menu-popup .button.sleep .icon, .power-menu-popup .button.sleep .label { color: var(--blue); }
+.power-menu-popup .button.signout .icon, .power-menu-popup .button.signout .label { color: var(--lavender); }
