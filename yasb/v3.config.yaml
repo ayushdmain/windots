@@ -1,0 +1,302 @@
+## ============================================================================
+## GLOBAL SETTINGS
+## ============================================================================
+watch_stylesheet: true   
+watch_config: true       
+debug: false
+update_check: true
+
+## ============================================================================
+## BAR CONFIGURATION
+## ============================================================================
+bars:
+  primary-bar:
+    enabled: true
+    class_name: "yasb-bar"
+    
+    alignment: 
+      position: "top"
+      center: true 
+    
+    dimensions:
+      width: "100%"
+      height: 33 
+    
+    padding:  
+      top: 0
+      left: 0
+      bottom: 0
+      right: 0 
+    
+    window_flags:  
+      always_on_top: false
+      windows_app_bar: true 
+    
+    blur_effect:  
+      enabled: true
+      acrylic: false
+      dark_mode: false 
+    
+    widgets:
+      left: 
+        # - "arch_logo"
+        - "glazewm_workspaces"
+        - "media"
+      center:
+        - "clock"
+      right:
+        - "systray"
+        - "bluetooth"
+        - "traffic"
+        # - "memory"
+        - "wifi"
+        - "microphone"
+        - "volume"
+        - "brightness"  # <--- FIXED: Added brightness to the active bar
+        # - "battery"
+        - "power_menu"
+
+## ============================================================================
+## WIDGET DEFINITIONS
+## ============================================================================
+widgets:
+
+  # ---------------------------------------------------------------------------
+  # LEFT MODULES
+  # ---------------------------------------------------------------------------
+
+  arch_logo:
+    type: "yasb.home.HomeWidget"
+    options:
+      label: "  "
+      system_menu: true
+      power_menu: true
+      blur: true
+      border_color: "None"
+      container_padding: 
+        top: 0
+        left: 6
+        bottom: 0
+        right: 4
+
+  glazewm_workspaces:
+    type: "glazewm.workspaces.GlazewmWorkspacesWidget"
+    options:
+      offline_label: "GlazeWM Offline"
+      hide_empty_workspaces: true
+      animation: true
+
+  media:
+    type: "yasb.media.MediaWidget"
+    options:
+      label: "󰎆 {title}"
+      label_alt: "󰎆 {title} - {artist}"
+      hide_empty: true
+      show_thumbnail: false
+      controls_hide: false    
+      controls_left: false     
+      max_field_size:
+        label: 25
+        label_alt: 40
+      callbacks: 
+        on_left: "toggle_media_menu"
+        on_middle: "toggle_play_pause"
+        on_right: "toggle_label"
+      media_menu: 
+        blur: true
+        border_color: "system"
+        alignment: "left"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+        thumbnail_corner_radius: 4
+        thumbnail_size: 80
+        show_source: true
+      media_menu_icons:
+        play: "󰐊"
+        pause: "󰏤"
+        prev_track: "󰒮"
+        next_track: "󰒭"
+
+  # ---------------------------------------------------------------------------
+  # CENTER MODULES
+  # ---------------------------------------------------------------------------
+
+  clock:
+    type: "yasb.clock.ClockWidget"
+    options:
+      label: " {%H:%M:%S}"
+      label_alt: " {%a,%Y-%m-%d %H:%M:%S}"
+      locale: "en_US"
+      timezones: []
+      calendar: 
+        blur: true
+        show_holidays: true
+        country_code: "IN"
+        holiday_color: "#f38ba8" 
+        alignment: "center"
+        direction: "down"
+        show_week_numbers: true
+      label_shadow: { enabled: true, color: "black", radius: 3, offset: [1, 1] }
+
+  # ---------------------------------------------------------------------------
+  # RIGHT MODULES
+  # ---------------------------------------------------------------------------
+
+  systray:
+    type: "yasb.systray.SystrayWidget"
+    options:
+      class_name: "systray"
+      icon_size: 16
+      label_collapsed: "\uf47d"
+      label_expanded: "\uf460"
+      label_position: "right"
+      show_unpinned_button: true
+      show_unpinned: false
+      pin_click_modifier: "alt"
+
+  traffic:
+    type: "yasb.traffic.TrafficWidget"
+    options:
+      label: "<span style='font-size: 18px;'>󰣺</span> ⇣{download_speed} ⇡{upload_speed}"
+      label_alt: "<span style='font-size: 18px;'></span>Download {download_speed} - Upload {upload_speed}"
+      update_interval: 1000
+      hide_decimal: true
+      callbacks: 
+        on_left: "toggle_menu"
+        on_right: "toggle_label"
+      menu:
+        blur: true
+        border_color: "system"
+        alignment: "right"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+  
+  bluetooth:
+    type: "yasb.bluetooth.BluetoothWidget"
+    options:
+      label: "<span>{icon}</span>"
+      label_alt: "󰂱 {device_count}"
+      label_no_device: "󰂲"
+      max_length: 10
+      max_length_ellipsis: "..."
+      icons: 
+        bluetooth_on: "󰂯"
+        bluetooth_off: "󰂲"
+        bluetooth_connected: "󰂱"
+      callbacks: 
+        on_right: "toggle_label"
+        on_middle: "exec cmd.exe /c start ms-settings:bluetooth"
+
+  memory:
+    type: "yasb.memory.MemoryWidget"
+    options:
+      label: " {virtual_mem_percent}%"
+      label_alt: "VIRT: {virtual_mem_used}/{virtual_mem_total}"
+      update_interval: 5000
+      callbacks: 
+        on_left: "exec taskmgr.exe"
+        on_right: "toggle_label" 
+      progress_bar: 
+        enabled: false
+      hide_decimal: true
+
+  wifi:
+    type: "yasb.wifi.WifiWidget"
+    options:
+      label: "<span>{wifi_icon}</span>"
+      label_alt: "{wifi_name} {wifi_strength}%"
+      update_interval: 5000
+      ethernet_icon: ""
+      wifi_icons: [
+        "󰤯", "󰤟", "󰤢", "󰤥", "󰤨"
+      ]
+      callbacks:
+        on_left: "toggle_menu"
+        on_middle: "exec cmd.exe /c start ms-settings:network"
+        on_right: "toggle_label"
+      menu_config:
+        blur: true
+        alignment: "right"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+
+  microphone:
+    type: "yasb.microphone.MicrophoneWidget"
+    options:
+      label: "<span>{icon}</span>"
+      label_alt: "<span>{icon}</span> {level}%"
+      icons: 
+        normal: "" 
+        muted: ""  
+      callbacks: 
+        on_left: "toggle_mic_menu"
+        on_middle: "exec cmd.exe /c start ms-settings:sound"
+        on_right: "toggle_mute"
+      mic_menu:
+        blur: true
+        border_color: "system"
+        alignment: "center"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+        
+  volume:
+    type: "yasb.volume.VolumeWidget"
+    options:
+      label: "<span>{icon}</span>"
+      label_alt: "Volume : {level}%"
+      volume_icons:
+        - "󰝟" # <--- FIXED: Must be exactly 5 icons
+        - "󰖀"
+        - "󰖀"
+        - "󰕾"
+        - ""
+      callbacks:
+        on_left: "toggle_volume_menu"
+        on_right: "toggle_mute"
+        on_middle: "exec control mmsys.cpl sounds"
+      audio_menu:
+        blur: true
+        border_color: "None"
+        alignment: "center"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+        show_apps: true # <--- FIXED: Removed invalid keys from here
+        
+  brightness:
+    type: "yasb.brightness.BrightnessWidget"
+    options:
+      label: "<span>{icon}</span>"
+      label_alt: "Brightness {percent}%"
+      hide_unsupported: true
+      brightness_toggle_level: [0, 50, 100]
+      brightness_icons: ["󰃞", "󰃝", "󰃟", "󰃠"] 
+      callbacks: 
+        on_left: "toggle_brightness_menu"
+        on_right: "toggle_label" 
+      brightness_menu:
+        blur: true
+        border_color: "system"
+        alignment: "center"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+
+  power_menu:
+      type: "yasb.power_menu.PowerMenuWidget"
+      options:
+        label: "󰤆"
+        uptime: true
+        blur_background: true
+        button_row: 6
+        buttons:
+          shutdown: ["", "Shut Down"]
+          restart: ["", "Restart"]
+          signout: ["󰍃", "Sign out"]
+          hibernate: ["", "Hibernate"]
+          sleep: ["", "Sleep"]
+          cancel: ["", "Close"]

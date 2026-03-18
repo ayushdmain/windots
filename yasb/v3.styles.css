@@ -1,0 +1,547 @@
+/* ============================================================================
+   GLOBAL THEME & VARIABLES (Catppuccin Mocha)
+   ============================================================================ */
+:root {
+    --rosewater: #f5e0dc;
+    --flamingo: #f2cdcd;
+    --pink: #f5c2e7;
+    --mauve: #cba6f7;
+    --red: #f38ba8;
+    --maroon: #eba0ac;
+    --peach: #fab387;
+    --yellow: #f9e2af;
+    --green: #a6e3a1;
+    --teal: #94e2d5;
+    --sky: #89dceb;
+    --sapphire: #74c7ec;
+    --blue: #89b4fa;
+    --lavender: #b4befe;
+    --text: #cdd6f4;
+    --subtext1: #bac2de;
+    --subtext0: #a6adc8;
+    --overlay2: #9399b2;
+    --overlay1: #7f849c;
+    --overlay0: #6c7086;
+    --surface2: #585b70;
+    --surface1: #45475a;
+    --surface0: #313244;
+    --base: #1e1e2e;
+    --mantle: #181825;
+    --crust-color: #11111b;
+}
+
+/* ============================================================================
+   WAYBAR BASE STYLES PORT
+   ============================================================================ */
+* {
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    font-family: "JetBrainsMono NFP", monospace;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main Bar Background */
+.yasb-bar {
+    background-color: #1e1e2e !important;
+    transition-property: background-color, opacity;
+    transition-duration: 0.25s;
+    /* Remove YASB blur to match Waybar's solid color */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+/* ToolTip Popups */
+.tooltip {
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+    /* font-family: "JetBrainsMono Nerd Font", monospace; */
+    border: none;
+}
+.tooltip .label {
+    padding: 2px 4px;
+    background-color: transparent;
+    color: #cdd6f4;
+}
+
+/* ============================================================================
+   MODULE PILLS (The classic Waybar layout)
+   ============================================================================ */
+
+/* Grouping the main modules to share the pill background */
+/* Add to the main pill grouping */
+.media-widget,
+.microphone-widget,
+.traffic-widget,
+.bluetooth-widget,
+.memory-widget,
+.power-menu-widget,
+.battery-widget,
+.volume-widget,
+.brightness-widget,  /* Added here */
+.wifi-widget,
+.clock-widget,
+.systray {
+    margin: 4px 4px;
+    padding: 3px 9px;
+    background-color: #313244;
+    border-radius: 3px;
+    color: #cdd6f4;
+    display: flex;
+    align-items: center;
+}
+
+/* Add to the hover state grouping */
+.media-widget:hover,
+.microphone-widget:hover,
+.traffic-widget:hover,
+.bluetooth-widget:hover,
+.memory-widget:hover,
+.power-menu-widget:hover,
+.battery-widget:hover,
+.volume-widget:hover,
+.brightness-widget:hover, /* Added here */
+.wifi-widget:hover,
+.clock-widget:hover,
+.systray:hover {
+    background-color: #45475a;
+}
+
+/* Base formatting for spans inside widgets */
+.widget .label, .widget .icon {
+    padding: 0;
+    margin: 0;
+}
+
+/* ============================================================================
+   SPECIFIC MODULE COLORS & TWEAKS
+   ============================================================================ */
+
+/* Custom Logo (Arch) */
+.home-widget {
+    padding: 0 6px;
+    margin: 4px 2px 4px 0px;
+    border-radius: 0;
+    background: transparent !important;
+}
+.home-widget .label {
+    font-size: 18px;
+    color: #89b4fa; /* Blue */
+}
+
+/* GlazeWM Workspaces */
+.glazewm-workspaces {
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+.glazewm-workspaces .widget-container {
+    border: none;
+    background: transparent;
+    padding: 0;
+}
+.glazewm-workspaces .ws-btn {
+    all: initial;
+    min-width: 0;
+    padding: 3px 9px;
+    margin: 4px 4px;
+    border-radius: 3px;
+    background-color: #313244;
+    color: #b4befe;
+    /* font-family: "JetBrainsMono Nerd Font", monospace; */
+    font-size: 13px;
+    cursor: pointer;
+    text-align: center;
+}
+.glazewm-workspaces .ws-btn:hover {
+    background-color: #89b4fa;
+    color: #1e1e2e;
+}
+.glazewm-workspaces .ws-btn[aria-current="true"],
+.glazewm-workspaces .ws-btn.active_populated,
+.glazewm-workspaces .ws-btn.active.populated {
+    background-color: #cba6f7;
+    color: #1e1e2e;
+    font-weight: 600;
+}
+
+
+/* === Main Bar Media Controls === */
+.media-widget .btn {
+    background-color: transparent;
+    color: var(--text);
+    /* font-family: "JetBrainsMono Nerd Font", monospace; */
+    font-size: 14px;
+    padding: 0 4px;
+    margin: 0 2px;
+    border-radius: 4px;
+}
+
+.media-widget .btn:hover {
+    background-color: var(--surface1); /* Highlights the button on hover */
+    color: var(--pink); /* Catppuccin Pink highlight */
+}
+
+/* Make the play/pause button slightly larger to stand out */
+.media-widget .btn.play,
+.media-widget .btn.pause {
+    font-size: 16px;
+    color: var(--pink); 
+}
+
+/* Dim the buttons if there is no media available to skip */
+.media-widget .btn.disabled {
+    color: var(--surface2);
+}
+.media-widget .btn.disabled:hover {
+    background-color: transparent;
+}
+
+/* Media Widget Main Bar Styling */
+.media-widget .label, .media-widget .icon { 
+    color: #f5c2e7; /* Catppuccin Pink */
+    padding-right: 4px; 
+}
+
+/* === Media Flyout Menu === */
+.media-menu {
+    min-width: 360px;
+    max-width: 360px;
+    background-color: var(--base);
+    border: 1px solid var(--surface1);
+    border-radius: 8px;
+}
+.media-menu .title,
+.media-menu .artist,
+.media-menu .source {
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 10px;
+    font-family: 'Segoe UI';
+    color: var(--text);
+}
+.media-menu .artist {
+    font-size: 13px;
+    color: var(--overlay0);
+    margin-top: 0px;
+    margin-bottom: 8px;
+}
+.media-menu .source {
+    font-size: 11px;
+    color: var(--crust-color);
+    font-weight: normal;
+    border-radius: 3px;
+    background-color: var(--subtext1);
+    padding: 2px 4px;
+}
+.media-menu .source.spotify { background-color: var(--green); color: var(--base); }
+.media-menu .source.chrome, .media-menu .source.edge { background-color: var(--blue); color: var(--base); }
+.media-menu .btn {
+    /* font-family: "JetBrainsMono Nerd Font", monospace; */
+    font-size: 14px;
+    font-weight: 400;
+    margin: 10px 2px 0px 2px;
+    min-width: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    max-height: 40px;
+    border-radius: 20px;
+    color: var(--text);
+    background-color: transparent;
+}
+.media-menu .btn:hover { background-color: var(--surface1); }
+.media-menu .btn.play { background-color: var(--surface0); font-size: 18px; }
+.media-menu .playback-time { font-size: 13px; font-family: 'Segoe UI'; color: var(--overlay1); min-width: 100px; }
+.media-menu .progress-slider { height: 20px; margin: 0 4px 5px 4px; border-radius: 3px; }
+.media-menu .progress-slider::groove { height: 2px; border-radius: 3px; background: var(--surface1); }
+.media-menu .progress-slider::sub-page { background: var(--blue); border-radius: 3px; height: 4px; }
+
+/* Traffic Main Bar Styling */
+.traffic-widget .label, 
+.traffic-widget .icon { 
+    color: #89dceb; /* Catppuccin Sky */
+    padding-right: 4px; 
+}
+
+/* Microphone Main Bar Styling */
+.microphone-widget .label, 
+.microphone-widget .icon { 
+    color: #f2cdcd; /* Catppuccin Flamingo */
+    padding-right: 4px; 
+}
+
+/* === Microphone Flyout Menu === */
+.microphone-menu { 
+    background-color: var(--base); 
+    border: 1px solid var(--surface1); 
+    border-radius: 8px; 
+    padding: 10px; 
+}
+
+/* Brightness Main Bar Styling */
+.brightness-widget .label, 
+.brightness-widget .icon { 
+    color: #fab387; /* Catppuccin Peach */
+    padding-right: 4px; 
+}
+
+/* === Brightness Flyout Menu === */
+.brightness-menu { 
+    background-color: var(--base); 
+    border: 1px solid var(--surface1); 
+    border-radius: 8px; 
+    padding: 10px; 
+}
+/* === Power Menu Widget & Popup === */
+
+/* Main Bar Button */
+.power-menu-widget .label {
+    color: var(--red);
+    /* font-size: 13px; */
+}
+
+/* The Modal Container */
+.power-menu-popup {
+    background-color: var(--base);
+    border: 1px solid var(--blue); 
+    border-radius: 6px;
+    padding: 20px;
+    /* Keeps the box tight around the 6 buttons */
+    max-width: 530px; 
+    margin: 0 auto;
+}
+
+/* The Square Action Buttons */
+.power-menu-popup .button {
+    width: 80px;
+    height: 80px;
+    border-radius: 6px;
+    background-color: var(--surface0);
+    margin: 0 4px; 
+    padding: 0;
+    border: none;
+}
+
+/* Nuke the text labels completely so icons can center */
+.power-menu-popup .button .label {
+    font-size: 0px !important;
+    color: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-height: 0px !important;
+}
+
+/* Center the icons vertically */
+.power-menu-popup .button .icon {
+    font-size: 32px;
+    color: var(--text);
+    margin-top: 24px; 
+    margin-bottom: 0;
+    padding: 0;
+}
+
+/* Hover States */
+.power-menu-popup .button:hover {
+    background-color: var(--mauve); 
+}
+.power-menu-popup .button:hover .icon {
+    color: var(--base); 
+}
+
+/* Uptime Pill Styling */
+.uptime {
+    background-color: var(--green);
+    color: var(--base);
+    /* font-family: "JetBrainsMono Nerd Font", monospace; */
+    font-size: 14px;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 6px;
+    /* Matches the width of the 6 buttons perfectly */
+    max-width: 530px; 
+    margin: 20px auto; 
+}
+
+/* Module Text Colors */
+.bluetooth-widget .label, .bluetooth-widget .icon { color: #74c7ec; }
+.memory-widget .label, .memory-widget .icon { color: #fab387; padding-right: 4px; }
+.volume-widget .label, .volume-widget .icon { color: #f9e2af; padding-right: 4px; }
+.wifi-widget .label, .wifi-widget .icon { color: #94e2d5; padding-right: 4px; }
+.clock-widget .label, .clock-widget .icon { color: #ddb6f2; }
+.power-menu-widget .label, .power-menu-widget .icon { color: #f2cdcd; padding-right: 6px; }
+
+/* Battery states */
+.battery-widget .label, .battery-widget .icon { color: #f38ba8; padding-right: 4px; }
+.battery-widget[charging="true"] .label, 
+.battery-widget[charging="true"] .icon { color: #a6e3a1; }
+
+
+/* ============================================================================
+   YASB FLYOUT MENUS (Kept intact from your config for functionality)
+   ============================================================================ */
+
+/* Calendar Flyout */
+/* .calendar { background-color: var(--base); border: 1px solid var(--surface0); border-radius: 8px; padding: 10px; }
+.calendar .calendar-table::item { background-color: transparent; color: var(--subtext1); font-family: 'Segoe UI'; font-size: 14px;}
+.calendar .calendar-table::item:selected { color: var(--base); background-color: var(--blue); border-radius: 10px; }
+.calendar .day-label, .calendar .month-label, .calendar .date-label { font-family: 'Segoe UI'; font-size: 16px; color: var(--text); font-weight: 700; }
+.calendar .date-label { font-size: 88px; font-weight: 900; margin-top: -20px; } */
+/* ============================================================================
+   FLYOUT MENUS (Catppuccin Themed)
+   ============================================================================ */
+
+/* === Calendar Flyout Menu === */
+.calendar { 
+    background-color: var(--base); 
+    border: 1px solid var(--surface1); 
+    border-radius: 8px; 
+    padding: 16px; 
+}
+
+/* Left side info (Friday, March) */
+.calendar .day-label, 
+.calendar .month-label, 
+.calendar .year-label { 
+    /* font-family: "JetBrainsMono Nerd Font", monospace;  */
+    font-size: 16px; 
+    color: var(--text); 
+    font-weight: 700; 
+}
+
+/* The giant date number */
+.calendar .date-label { 
+    /* font-family: "JetBrainsMono Nerd Font", monospace;  */
+    font-size: 64px; 
+    font-weight: 900; 
+    color: var(--mauve); /* Catppuccin Purple */
+    margin-top: -10px; 
+}
+
+/* Week number */
+.calendar .week-label { 
+    /* font-family: "JetBrainsMono Nerd Font", monospace;  */
+    color: var(--subtext0); 
+    font-size: 13px; 
+}
+
+/* The Date Grid */
+.calendar .calendar-table {
+    background: transparent;
+    border: none;
+}
+
+.calendar .calendar-table::item { 
+    color: var(--text); 
+    /* font-family: "JetBrainsMono Nerd Font", monospace;  */
+    font-size: 13px;
+    padding: 4px;
+    border-radius: 6px; /* Soft rounded corners for dates */
+}
+
+/* Hover over a date */
+.calendar .calendar-table::item:hover {
+    background-color: var(--surface0);
+}
+
+/* The selected/current date */
+.calendar .calendar-table::item:selected { 
+    background-color: var(--surface1); 
+    color: var(--blue); 
+    font-weight: bold; 
+}
+
+/* === Traffic Flyout Menu === */
+.traffic-menu { 
+    background-color: var(--base); 
+    border: 1px solid var(--surface1); 
+    border-radius: 8px; 
+    padding: 16px; 
+}
+
+/* Give the traffic grid breathing room */
+.traffic-menu QLabel {
+    /* font-family: "JetBrainsMono Nerd Font", monospace; */
+    font-size: 13px;
+    color: var(--subtext0); /* Muted text for labels like 'Kbps' or 'Downloaded' */
+    padding: 4px 10px;      /* This fixes the squished text! */
+}
+
+/* Make headers and actual numbers pop with the primary text color */
+.traffic-menu .title,
+.traffic-menu .value,
+.traffic-menu .header {
+    color: var(--text);
+    font-weight: bold;
+}
+
+/* Title text */
+.traffic-menu .title {
+    font-size: 14px;
+    color: var(--blue);
+    padding-bottom: 8px;
+}
+
+/* The 'Reset All' button */
+.traffic-menu QPushButton {
+    background-color: var(--surface0);
+    color: var(--text);
+    border-radius: 4px;
+    padding: 4px 8px;
+    /* font-family: "JetBrainsMono Nerd Font", monospace; */
+    font-size: 12px;
+}
+
+.traffic-menu QPushButton:hover {
+    background-color: var(--surface1);
+    color: var(--red); /* Turns red to indicate a delete/reset action */
+}
+
+/* Wi-Fi Dropdown Menu */
+.wifi-menu { font-family: 'Segoe UI'; background-color: var(--base); color: var(--text); border: 1px solid var(--surface1); border-radius: 8px; min-width: 375px; }
+.wifi-menu .header { font-size: 14px; font-weight: 600; padding: 12px; background-color: var(--surface0); border-bottom: 1px solid var(--surface1); }
+.wifi-menu .wifi-item { min-height: 35px; padding: 2px 12px; margin: 2px 4px; }
+.wifi-menu .wifi-item:hover { background-color: rgba(205, 214, 244, 0.06); border-radius: 6px; }
+.wifi-menu .wifi-item[active=true] { background-color: var(--surface1); border: 1px solid var(--surface2); border-radius: 6px; }
+.wifi-menu .wifi-item .icon { font-family: 'Segoe Fluent Icons'; font-size: 26px; margin-right: 10px; }
+.wifi-menu .footer { padding: 12px; background-color: var(--surface0); border-top: 1px solid var(--surface1); }
+
+/* Audio / Volume Menu */
+.audio-menu { background-color: var(--base); border: 1px solid var(--surface1); border-radius: 8px; padding: 10px; }
+
+/* Home / Logo Menu */
+.home-menu { background-color: var(--base); border: 1px solid var(--surface1); border-radius: 8px; }
+.home-menu .menu-item { padding: 8px 48px 9px 16px; font-family: 'Segoe UI'; color: var(--text); }
+.home-menu .menu-item:hover { background-color: var(--surface1); }
+
+/* Power Popup Overlay */
+.power-menu-popup { background-color: rgba(30, 30, 46, 0.85); }
+.power-menu-popup .button { width: 180px; height: 230px; border-radius: 8px; background-color: var(--surface0); cursor: pointer; }
+.power-menu-popup .button:hover { background-color: var(--surface1); }
+.power-menu-popup .button .label { margin-bottom: 8px; font-size: 16px; color: var(--text); }
+.power-menu-popup .button .icon { font-size: 64px; padding-top: 32px; color: var(--overlay1); }
+.power-menu-popup .button.shutdown .icon, .power-menu-popup .button.shutdown .label { color: var(--red); }
+.power-menu-popup .button.restart .icon, .power-menu-popup .button.restart .label { color: var(--peach); }
+.power-menu-popup .button.sleep .icon, .power-menu-popup .button.sleep .label { color: var(--blue); }
+.power-menu-popup .button.signout .icon, .power-menu-popup .button.signout .label { color: var(--lavender); }
+
+/* ============================================================================
+   AUDIO & MICROPHONE MENU HOVER STATES (Color Only)
+   ============================================================================ */
+
+/* The Hover Effect */
+.audio-menu .audio-container .device:hover,
+.microphone-menu .microphone-container .device:hover {
+    background-color: var(--surface0);
+}
+
+/* Highlight the currently active/default device */
+.audio-menu .audio-container .device.selected,
+.microphone-menu .microphone-container .device.selected {
+    background-color: var(--surface1);
+}
