@@ -64,12 +64,13 @@ bars:
         [
           "network",
           # "device-stats",
-          "systray",
           "utility-toggle",
           # "volume",
           # "battery",
           # "language",
+          "systray",
           "notifications",
+          "wallpapers",
           "power_menu"
         ]
 
@@ -219,22 +220,6 @@ widgets:
         offset_top: 6
         offset_left: 0
 
-  systray:
-    type: "yasb.systray.SystrayWidget"
-    options:
-      class_name: "systray"
-      label_collapsed: "\uf47d"
-      label_expanded: "\uf460"
-      label_position: "right"
-      icon_size: 16
-      pin_click_modifier: "alt"
-      show_unpinned: false
-      show_unpinned_button: true
-      show_battery: false
-      show_volume: false
-      show_network: false
-      tooltip: true
-
   # Grouper widget to bundle audio and brightness controls
   utility-toggle:
     type: "yasb.grouper.GrouperWidget"
@@ -328,6 +313,22 @@ widgets:
         offset_top: 0
         offset_left: 0
 
+  systray:
+    type: "yasb.systray.SystrayWidget"
+    options:
+      class_name: "systray"
+      label_collapsed: "\uf47d"
+      label_expanded: "\uf460"
+      label_position: "right"
+      icon_size: 16
+      pin_click_modifier: "alt"
+      show_unpinned: false
+      show_unpinned_button: true
+      show_battery: false
+      show_volume: false
+      show_network: false
+      tooltip: true
+
   notifications:
     type: "yasb.notifications.NotificationsWidget"
     options:
@@ -339,6 +340,32 @@ widgets:
         on_left: "toggle_notification"
         on_right: "toggle_label"
         on_middle: "toggle_label"
+
+  wallpapers:
+    type: "yasb.wallpapers.WallpapersWidget"
+    options:
+      label: "<span>\udb83\ude09</span>"
+      # Example path to folder with images. Can be a single string or a list of strings.
+      image_path: "C:\\Users\\ayush\\Pictures\\Wallpapers\\Catppuccin"
+      change_automatically: false
+      update_interval: 60
+      animation:
+        enabled: true
+        type: 'fadeInOut'
+        duration: 200
+      gallery:
+        enabled: true
+        blur: false
+        image_width: 300
+        image_per_page: 6
+        show_buttons: true
+        orientation: "portrait"
+        image_spacing: 11
+        lazy_load: true
+        lazy_load_delay: 10
+        lazy_load_fadein: 200
+        image_corner_radius: 8
+        enable_cache: true
 
   power_menu:
     type: "yasb.power_menu.PowerMenuWidget"
@@ -405,8 +432,8 @@ widgets:
       label: "<span>\uf473</span> Drives"
       label_alt: "<span>\uf473</span>"
       callbacks:
-        on_left: "exec explorer C:\\"
-        on_right: "toggle_group"
+        on_left: "toggle_group"
+        on_right: "exec explorer C:\\"
       group_label:
         volume_labels: ["C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
         show_label_name: false 

@@ -101,11 +101,19 @@
     margin: 3.5px 0 3.5px 0;
     border-radius: 5px;
 }
+.device-stats {
+    padding-right: 2px;
+    margin-right: 0px;
+}
 
 .network .container {
     background-color: var(--base);
     margin: 3.5px 0 3.5px 0;
     border-radius: 5px;
+}
+.network {
+    padding-right: 2px;
+    margin-right: 0px;
 }
 
 .utility-toggle .container {
@@ -113,6 +121,7 @@
     margin: 3.5px 0 3.5px 0;
     border-radius: 5px;
 }
+
 
 /* ============================================================================
    MEDIA WIDGET (Spotify, YouTube, etc.)
@@ -244,11 +253,54 @@
 }
 
 /* ============================================================================
+   WALLPAPERS WIDGET
+   ============================================================================ */
+.wallpapers-widget {
+    padding-right: 2px;
+    margin-right: 0px;
+    font-size: 14px;
+}
+   .wallpapers-gallery-window {
+    background-color: var(--base);
+    border: 2px solid var(--lavender);
+    border-radius: 10px;
+}
+.wallpapers-gallery-buttons {
+    font-size: 12px;
+    font-family: 'JetBrainsMono NFP';
+    background-color: var(--lavender);
+    color: var(--crust);
+    font-size: 14px;
+    padding: 8px 0px;
+    margin:8px 8px 8px 8px;
+    width: 600px;
+    border-radius: 10px;
+}
+.wallpapers-gallery-buttons:hover {
+    background-color: var(--mauve);
+}
+.wallpapers-gallery-image {
+    border: 4px solid var(--lavender);
+    border-radius: 10px;
+    margin-right: 5px;
+}
+.wallpapers-gallery-image:hover {
+    border: 4px solid var(--mauve);
+    border-radius: 10px;
+}
+.wallpapers-gallery-image.focused {
+}
+
+/* ============================================================================
    POWER MENU WIDGET
    ============================================================================ */
-.power-menu-widget .label {
+.power-menu-widget {
+    padding-left: 2px;
+    margin-left: 0px;
+}
+   .power-menu-widget .label {
     color: var(--red);
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .power-menu-popup {
@@ -412,6 +464,62 @@
 }
 
 .volume-slider::sub-page {
+    background: #7aa2f7;
+    border-radius: 3px;
+    height: 4px;
+}
+/* Toggle button for application volumes (if is enabled) */
+.audio-menu .toggle-apps {
+    background-color: transparent;
+    border: none;
+    padding: 6px 8px 6px 4px;
+    margin: 2px 0;
+    font-size: 12px;
+    border-radius: 4px;
+}
+.audio-menu .toggle-apps.expanded {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.audio-menu .toggle-apps:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+
+}
+/* Container for application volumes (if is enabled) */
+.audio-menu .apps-container {
+    padding: 8px;
+    margin-top:20px;
+    border-radius: 8px;
+    background-color:rgba(255, 255, 255, 0.062)
+}
+.audio-menu .apps-container .app-volume .app-icon-container {
+    min-width: 30px;
+    min-height: 30px;
+    max-width: 30px;
+    max-height: 30px;
+    border-radius: 6px;
+    margin-right: 8px;
+}
+.audio-menu .apps-container .app-volume .app-icon-container:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.audio-menu .apps-container .app-volume .app-slider {
+    height: 10px;
+    margin: 5px 4px;
+    border-radius: 3px;
+}
+.audio-menu .apps-container .app-volume .app-slider::groove {
+    background: transparent;
+    height: 2px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+}
+.audio-menu .apps-container .app-volume .app-slider::groove:hover {
+    background: transparent;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.2);
+}
+.audio-menu .apps-container .app-volume .app-slider::sub-page {
     background: #7aa2f7;
     border-radius: 3px;
     height: 4px;
@@ -593,9 +701,13 @@
 }
 
 /* Style for the currently active workspace */
-.glazewm-workspaces .ws-btn.active_populated {
+.glazewm-workspaces .ws-btn.active_populated,
+.glazewm-workspaces .ws-btn.active_empty {
     color: var(--red);
     font-weight: 900;
+}
+.glazewm-workspaces .ws-btn:hover {
+    color: var(--text);
 }
 
 /* ============================================================================
@@ -604,6 +716,163 @@
 .wifi-widget .icon {
     color: var(--yellow);
 }
+.wifi-widget {
+    padding-left: 2px;
+}
+
+/* === Wi‑Fi Widget (Controls Group) === */
+/* Wi‑Fi pointer cursor (apply broadly to ensure it takes) */
+.wifi-widget,
+.wifi-widget .icon,
+.wifi-widget .label {
+    cursor: pointer !important;
+}
+
+/* Ensure Wi‑Fi gets the same hover background as other controls */
+.controls-group .wifi-widget,
+.controls-group .wifi-widget .widget-container {
+    border-radius: 8px;
+}
+.controls-group .wifi-widget:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+}
+/* prevent nested Wi‑Fi container from adding a second hover layer */
+.controls-group .wifi-widget .widget-container:hover {
+    background-color: transparent !important;
+}
+
+/* === Wi‑Fi Menu === */
+.wifi-menu {
+    font-family: 'Segoe UI';
+    background-color: var(--crust);
+    color: var(--text);
+    border: 1px solid var(--surface1);
+    border-radius: 8px;
+    max-height: 350px;
+    min-height: 375px;
+    min-width: 375px;
+}
+.wifi-menu .progress-bar {
+    max-height: 2px;
+}
+.wifi-menu .progress-bar::chunk {
+    background-color: var(--blue);
+}
+.wifi-menu .header {
+    font-family: 'Segoe UI';
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    padding: 12px;
+    background-color: var(--surface0);
+    color: #fff;
+    border-bottom: 1px solid var(--surface1);
+}
+.wifi-menu .error-message {
+    font-family: 'Segoe UI';
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    padding: 12px;
+    background-color: var(--red);
+    color: white;
+    border-bottom: 1px solid var(--surface1);
+}
+.wifi-menu .wifi-list {
+    background-color: var(--base);
+    margin-right: 3px;
+}
+.wifi-menu .wifi-item {
+    min-height: 35px;
+    padding: 2px 12px;
+    margin: 2px 4px;
+}
+.wifi-menu .wifi-item:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-radius: 6px;
+}
+.wifi-menu .wifi-item[active=true] {
+    background-color: var(--surface1);
+    border: 1px solid var(--surface2);
+    font-size: 14px;
+    border-radius: 6px;
+    min-height: 80px;
+}
+.wifi-menu .wifi-item .icon {
+    font-family: 'Segoe Fluent Icons';
+    font-size: 26px;
+    margin-right: 10px;
+    color: var(--text);
+}
+.wifi-menu .wifi-item .name {
+    font-family: 'Segoe UI';
+    font-size: 14px;
+    margin-right: 10px;
+    color: var(--text);
+}
+.wifi-menu .wifi-item .password {
+    font-family: 'Segoe UI';
+    background-color: transparent;
+    font-size: 14px;
+}
+.wifi-menu .wifi-item .status {
+    font-family: 'Segoe UI';
+    font-size: 14px;
+    color: var(--overlay0);
+}
+.wifi-menu .wifi-item .strength {
+    font-family: 'Segoe UI';
+    font-size: 14px;
+    color: var(--overlay0);
+}
+.wifi-menu .wifi-item .controls-container {
+    padding-top: 8px;
+}
+.wifi-menu .wifi-item .connect {
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 4px 30px;
+    border-radius: 4px;
+    border: 1px solid var(--surface1);
+    color: #fff;
+    font-size: 14px;
+}
+.wifi-menu .wifi-item .connect:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+.wifi-menu .wifi-item .connect:pressed {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+.wifi-menu .footer {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 12px;
+    margin-top: 2px;
+    color: var(--overlay0);
+    background-color: var(--surface0);
+    border-top: 1px solid var(--surface1);
+}
+.wifi-menu .footer .settings-button {
+    font-family: 'Segoe UI';
+    background-color: transparent;
+    border: none;
+    padding: 0 2px;
+    min-width: 26px;
+    min-height: 26px;
+    color: #fff;
+}
+.wifi-menu .footer .refresh-icon {
+    font-family: 'Segoe Fluent Icons';
+    background-color: transparent;
+    border: none;
+    min-width: 26px;
+    min-height: 26px;
+    color: #fff;
+}
+.wifi-menu .footer .refresh-icon:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
 
 .battery-widget .icon {
     color: var(--flamingo);

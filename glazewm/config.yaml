@@ -30,7 +30,14 @@ window_effects:
   focused_window:
     border:
       enabled: true
-      color: '#f9e2af' # Yellow
+      color: '#cba6f7' # Mauve
+    corner_style:
+      enabled: true
+      style: 'square'
+  other_windows:
+    border:
+      enabled: true
+      color: '#6c7086'
     corner_style:
       enabled: true
       style: 'square'
@@ -209,6 +216,9 @@ keybindings:
   # -- Application Shortcuts --
   - commands: ["shell-exec wt"]
     bindings: ["alt+p"]
+
+  - commands: ["shell-exec C:\\Users\\ayush\\Desktop\\Ubuntu.lnk"]
+    bindings: ["alt+enter"]
     
   - commands: ["shell-exec explorer"]
     bindings: ["alt+e"]
@@ -219,8 +229,11 @@ keybindings:
   - commands: ["shell-exec chrome"]
     bindings: ["alt+g"]
 
-  - commands: ["shell-exec C:\\Users\\ayush\\Desktop\\Visual Studio Code.lnk"]
+  - commands: ["shell-exec code"]
     bindings: ["alt+c"]
+  
+  - commands: ["shell-exec zed"]
+    bindings: ["alt+z"]
 
   - commands: ["shell-exec C:\\Users\\ayush\\Desktop\\Obsidian.lnk"]
     bindings: ["alt+o"]
@@ -231,9 +244,6 @@ keybindings:
   - commands: ["shell-exec C:\\Users\\ayush\\Desktop\\Discord.lnk"]
     bindings: ["alt+d"]
   
-  - commands: ["shell-exec C:\\Users\\ayush\\Desktop\\Ubuntu.lnk"]
-    bindings: ["alt+enter"]
-
   - commands: ["shell-exec C:\\Users\\ayush\\Desktop\\Steam.lnk"]
     bindings: ["alt+s"]
 
