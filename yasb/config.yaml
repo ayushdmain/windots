@@ -96,8 +96,8 @@ widgets:
   media:
     type: "yasb.media.MediaWidget"
     options:
-      label: "\uf001 {title} - {artist}"
-      label_alt: "\uf001 {title}"
+      label: "\uf001 {title}"
+      label_alt: "\uf001 {title} - {artist}"
       max_field_size:
         label: 45
         label_alt: 45
@@ -139,8 +139,8 @@ widgets:
   clock:
     type: "yasb.clock.ClockWidget"
     options:
-      label: "<span>\uf017</span>{%H:%M}"
-      label_alt: "<span>\uf017</span>{%a %Y-%m-%d %H:%M:%S}"
+      label: "{%H:%M}"
+      label_alt: "{%a %Y-%m-%d %H:%M:%S}"
       locale: "en_US"
       timezones: []
       calendar:
@@ -346,7 +346,7 @@ widgets:
     options:
       label: "<span>\udb83\ude09</span>"
       # Example path to folder with images. Can be a single string or a list of strings.
-      image_path: "C:\\Users\\ayush\\Pictures\\Wallpapers\\Catppuccin"
+      image_path: "C:\\Users\\ayush\\Pictures\\walls-catppuccin-mocha"
       change_automatically: false
       update_interval: 60
       animation:
